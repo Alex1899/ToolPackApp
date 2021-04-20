@@ -8,17 +8,28 @@
             android:id="@+id/nav_home"
             android:icon="@drawable/ic_menu_camera"
             android:title="@string/menu_home" />
-        <item
-            android:id="@+id/nav_gallery"
-            android:icon="@drawable/ic_menu_gallery"
-            android:title="@string/menu_gallery" />
-        <item
-            android:id="@+id/nav_slideshow"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="@string/menu_slideshow" />
 
-        <item android:id="@+id/addDriverFragment"
+        <item
+            android:id="@+id/addDriverFragment"
             android:icon="@drawable/ic_add_driver"
             android:title="Add Driver" />
+
+        <item
+            android:id="@+id/addBuildingSiteFragment"
+            android:icon="@drawable/ic_building_site"
+            android:title="Add Building Site" />
+
+        <item
+            android:id="@+id/addPackageFragment"
+            android:icon="@drawable/ic_add_package"
+            android:title="Add Package"
+            />
+
+        <item
+            android:id="@+id/addVendorFragment"
+            android:icon="@drawable/ic_add_vendor"
+            android:title="Add Vendor"
+            />
+
     </group>
 </menu>

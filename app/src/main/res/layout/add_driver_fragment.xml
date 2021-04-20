@@ -92,10 +92,6 @@
                 app:layout_constraintTop_toBottomOf="@id/driverPassword" />
 
 
-            <include
-                android:id="@+id/llProgressBar"
-                android:visibility="gone"
-                layout="@layout/progress_dialog_with_text"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
