@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "542601664764",
+    "project_id": "toolpack-60b82",
+    "storage_bucket": "toolpack-60b82.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:542601664764:android:c926c91d1222be9f651f79",
+        "android_client_info": {
+          "package_name": "com.example.toolpackapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "542601664764-h88ibatmjvsvp83oiis68i4em0ssn2rv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.toolpackapp",
+            "certificate_hash": "54c409b8d8f2ffb3462663a4aede7d2e55a37ece"
+          }
+        },
+        {
+          "client_id": "542601664764-bae3mnbpd83kg068qhbms8o3d80ued7p.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAenPuq2Jy-wECdBE7uy4vqzck048XOsQg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "542601664764-bae3mnbpd83kg068qhbms8o3d80ued7p.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

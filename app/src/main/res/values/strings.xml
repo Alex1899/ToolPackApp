@@ -1,0 +1,31 @@
+<resources>
+    <string name="app_name">ToolPack</string>
+    <string name="title_login">Please log in to you account</string>
+    <string name="title_add_driver">Create an account for the driver</string>
+    <string name="et_hint_email_id">Email ID</string>
+    <string name="et_hint_password">Password</string>
+    <string name="lbl_forgot_password">Forgot Password?</string>
+    <string name="btn_lbl_login">Login</string>
+    <string name="content_desc">Image</string>
+
+    <string name="err_msg_enter_full_name">Please enter the fullname</string>
+    <string name="err_msg_enter_username">Please enter email</string>
+    <string name="err_msg_enter_email">Please enter email</string>
+    <string name="err_msg_enter_password">Please enter password</string>
+
+    <string name="please_wait">Please Wait&#8230;</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_side_bar">SideBarActivity</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="menu_home">Home</string>
+    <string name="menu_gallery">Gallery</string>
+    <string name="menu_slideshow">Slideshow</string>
+    <string name="title_activity_navigation_drawer">NavigationDrawerActivity</string>
+</resources>
