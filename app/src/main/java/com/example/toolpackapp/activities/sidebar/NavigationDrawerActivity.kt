@@ -1,4 +1,4 @@
-package com.example.toolpackapp.activities
+package com.example.toolpackapp.activities.sidebar
 
 import android.os.Bundle
 import android.util.Log

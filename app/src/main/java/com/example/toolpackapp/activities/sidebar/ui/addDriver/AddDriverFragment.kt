@@ -1,4 +1,4 @@
-package com.example.toolpackapp.activities.ui.addDriver
+package com.example.toolpackapp.activities.sidebar.ui.addDriver
 
 import android.os.Bundle
 import android.text.TextUtils

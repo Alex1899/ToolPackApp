@@ -7,28 +7,28 @@
 
     <fragment
         android:id="@+id/nav_home"
-        android:name="com.example.toolpackapp.activities.ui.home.HomeFragment"
+        android:name="com.example.toolpackapp.activities.sidebar.ui.home.HomeFragment"
         android:label="@string/menu_home"
         tools:layout="@layout/fragment_home" />
 
     <fragment
         android:id="@+id/addDriverFragment"
-        android:name="com.example.toolpackapp.activities.ui.addDriver.AddDriverFragment"
+        android:name="com.example.toolpackapp.activities.sidebar.ui.addDriver.AddDriverFragment"
         android:label="add_driver_fragment"
         tools:layout="@layout/add_driver_fragment" />
     <fragment
         android:id="@+id/addBuildingSiteFragment"
-        android:name="com.example.toolpackapp.activities.ui.addBuildingSite.AddBuildingSiteFragment"
+        android:name="com.example.toolpackapp.activities.sidebar.ui.addBuildingSite.AddBuildingSiteFragment"
         android:label="fragment_add_building_site"
         tools:layout="@layout/fragment_add_building_site" />
     <fragment
         android:id="@+id/addPackageFragment"
-        android:name="com.example.toolpackapp.activities.ui.addPackage.AddPackageFragment"
+        android:name="com.example.toolpackapp.activities.sidebar.ui.addPackage.AddPackageFragment"
         android:label="fragment_add_package"
         tools:layout="@layout/fragment_add_package" />
     <fragment
         android:id="@+id/addVendorFragment"
-        android:name="com.example.toolpackapp.activities.ui.addVendor.AddVendorFragment"
+        android:name="com.example.toolpackapp.activities.sidebar.ui.addVendor.AddVendorFragment"
         android:label="fragment_add_vendor"
         tools:layout="@layout/fragment_add_vendor" />
 </navigation>

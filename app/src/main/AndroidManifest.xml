@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ToolPackApp">
         <activity
-            android:name=".activities.NavigationDrawerActivity"
+            android:name=".activities.sidebar.NavigationDrawerActivity"
             android:screenOrientation="portrait"
             android:label="@string/title_activity_navigation_drawer"
             android:theme="@style/Theme.ToolPackApp.NoActionBar">

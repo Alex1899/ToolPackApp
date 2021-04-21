@@ -1,4 +1,4 @@
-package com.example.toolpackapp.activities.ui.addPackage
+package com.example.toolpackapp.activities.sidebar.ui.addPackage
 
 import android.os.Bundle
 import android.view.LayoutInflater
