@@ -28,4 +28,34 @@
     <string name="menu_gallery">Gallery</string>
     <string name="menu_slideshow">Slideshow</string>
     <string name="title_activity_navigation_drawer">NavigationDrawerActivity</string>
+
+    <!--    common strings fro database action-->
+    <string name="msg_addsuccessful">Record Added Successfully</string>
+    <string name="msg_addfailure">Record Failed to add</string>
+
+    <!--    add building sites Strings -->
+    <string name="buildingSiteName">Name</string>
+    <string name="buildingSiteAddress">Address</string>
+    <string name="buildingSiteAdminEmail">Site Admin E-mail</string>
+    <string name="buildingSiteAdminFullName">Site Admin FullName</string>
+    <string name="buildingSitePhone">Site Telephone</string>
+    <string name="button_addNewBuildingSite">Submit</string>
+
+    <!--    add vendor Strings -->
+    <string name="vendorName">FullName</string>
+    <string name="vendoremail">E-mail</string>
+    <string name="vendoraddress">Pickup Address</string>
+    <string name="vedorphone">Contact Number</string>
+    <string name="button_addNewVendor">Submit</string>
+
+    <!--    add new package Strings-->
+    <string-array name="package_status_array">
+        <item>Pending</item>
+    </string-array>
+    <string name="textview">Select Vendor:</string>
+    <string name="spinner_selectVendor">Select a vendor: </string>
+    <string name="spinner_selectDriver">Select a driver: </string>
+    <string name="spinner_selectBuildingsite">Select a building-Site: </string>
+    <string name="packageDescripton">Package Description</string>
+
 </resources>

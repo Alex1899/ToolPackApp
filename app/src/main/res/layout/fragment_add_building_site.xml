@@ -1,15 +1,127 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+
     tools:context=".activities.sidebar.ui.addBuildingSite.AddBuildingSiteFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <ScrollView
+        android:id="@+id/add_fragment_content"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:text="Add building fragment" />
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-</FrameLayout>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <FrameLayout
+                android:id="@+id/frameLayout2"
+                android:layout_width="412dp"
+                android:layout_height="201dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:contentDescription="@string/content_desc"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/auth_header_image" />
+            </FrameLayout>
+
+            <EditText
+                android:id="@+id/buildingSiteName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:autofillHints=""
+                android:ems="10"
+                android:hint="@string/buildingSiteName"
+                android:inputType="textPersonName"
+                app:layout_constraintBottom_toTopOf="@+id/buildingSiteAddress"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.498"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/frameLayout2" />
+
+            <EditText
+                android:id="@+id/buildingSiteAddress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:layout_marginTop="84dp"
+                android:autofillHints=""
+                android:ems="10"
+                android:hint="@string/buildingSiteAddress"
+                android:inputType="textEmailAddress"
+                app:layout_constraintBottom_toTopOf="@+id/buildingSiteAdminEmail"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.6"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/buildingSiteName" />
+
+            <EditText
+                android:id="@+id/buildingSiteAdminEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:ems="10"
+                android:hint="@string/buildingSiteAdminEmail"
+                android:inputType="textEmailAddress"
+                app:layout_constraintBottom_toTopOf="@+id/buildingSiteAdminFullName"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/buildingSiteAddress"
+                app:layout_constraintVertical_bias="0.16" />
+
+            <EditText
+                android:id="@+id/buildingSiteAdminFullName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:ems="10"
+                android:hint="@string/buildingSiteAdminFullName"
+                android:inputType="text"
+                app:layout_constraintBottom_toTopOf="@+id/buildingSitePhone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/buildingSiteAdminEmail"
+                app:layout_constraintVertical_bias="0.16" />
+
+            <EditText
+                android:id="@+id/buildingSitePhone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:ems="10"
+                android:hint="@string/buildingSitePhone"
+                android:inputType="text"
+                app:layout_constraintBottom_toTopOf="@+id/button_addNewBuildingSite"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/buildingSiteAdminFullName"
+                app:layout_constraintVertical_bias="0.16" />
+
+            <Button
+                android:id="@+id/button_addNewBuildingSite"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:text="@string/button_addNewBuildingSite"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/buildingSitePhone" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

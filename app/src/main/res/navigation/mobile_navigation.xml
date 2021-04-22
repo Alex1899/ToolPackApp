@@ -10,25 +10,24 @@
         android:name="com.example.toolpackapp.activities.sidebar.ui.home.HomeFragment"
         android:label="@string/menu_home"
         tools:layout="@layout/fragment_home" />
-
     <fragment
         android:id="@+id/addDriverFragment"
         android:name="com.example.toolpackapp.activities.sidebar.ui.addDriver.AddDriverFragment"
-        android:label="add_driver_fragment"
+        android:label="Add New Driver"
         tools:layout="@layout/add_driver_fragment" />
     <fragment
         android:id="@+id/addBuildingSiteFragment"
         android:name="com.example.toolpackapp.activities.sidebar.ui.addBuildingSite.AddBuildingSiteFragment"
-        android:label="fragment_add_building_site"
+        android:label="Add New Building-Site"
         tools:layout="@layout/fragment_add_building_site" />
     <fragment
         android:id="@+id/addPackageFragment"
         android:name="com.example.toolpackapp.activities.sidebar.ui.addPackage.AddPackageFragment"
-        android:label="fragment_add_package"
+        android:label="Add New Package"
         tools:layout="@layout/fragment_add_package" />
     <fragment
         android:id="@+id/addVendorFragment"
         android:name="com.example.toolpackapp.activities.sidebar.ui.addVendor.AddVendorFragment"
-        android:label="fragment_add_vendor"
+        android:label="Add New Vendor"
         tools:layout="@layout/fragment_add_vendor" />
 </navigation>
