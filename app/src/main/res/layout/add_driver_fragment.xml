@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
 
-    tools:context=".activities.ui.addDriver.AddDriverFragment">
+    tools:context=".activities.manager.ui.addDriver.AddDriverFragment">
 
     <ScrollView
         android:id="@+id/add_fragment_content"

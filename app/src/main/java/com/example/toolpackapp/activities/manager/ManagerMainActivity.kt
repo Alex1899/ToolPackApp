@@ -1,5 +1,6 @@
-package com.example.toolpackapp.activities
+package com.example.toolpackapp.activities.manager
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
@@ -14,11 +15,13 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.toolpackapp.R
+import com.example.toolpackapp.activities.LoginActivity
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.auth.FirebaseAuth
 
-class NavigationDrawerActivity : AppCompatActivity() , NavigationView.OnNavigationItemSelectedListener {
+class ManagerMainActivity : AppCompatActivity()  {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
 
@@ -61,17 +64,18 @@ class NavigationDrawerActivity : AppCompatActivity() , NavigationView.OnNavigati
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
 
-    override fun onNavigationItemSelected(item: MenuItem): Boolean {
-       return when (item.itemId) {
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
             R.id.action_logout -> {
                 // logout user
                 Log.d("MyApp","User Logged Out");
+                FirebaseAuth.getInstance().signOut()
+                startActivity(Intent(this@ManagerMainActivity, LoginActivity::class.java))
                 true
             }
             else -> {
                 false
             }
-
         }
     }
 }

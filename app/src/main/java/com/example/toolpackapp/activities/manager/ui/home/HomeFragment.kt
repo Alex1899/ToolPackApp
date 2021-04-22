@@ -1,4 +1,4 @@
-package com.example.toolpackapp.activities.ui.home
+package com.example.toolpackapp.activities.manager.ui.home
 
 import android.os.Bundle
 import android.view.LayoutInflater

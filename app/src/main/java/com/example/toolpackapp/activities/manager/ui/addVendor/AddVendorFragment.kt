@@ -1,4 +1,4 @@
-package com.example.toolpackapp.activities.ui.addVendor
+package com.example.toolpackapp.activities.manager.ui.addVendor
 
 import android.os.Bundle
 import android.view.LayoutInflater

@@ -15,4 +15,10 @@
     <dimen name="nav_header_height">176dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
 
+    <dimen name="profile_user_image_size">150dp</dimen>
+    <dimen name="profile_user_image_marginTop">50dp</dimen>
+    <dimen name="user_image_background_stroke">4dp</dimen>
+    <dimen name="user_image_background_corner_radius">10dp</dimen>
+
+
 </resources>
