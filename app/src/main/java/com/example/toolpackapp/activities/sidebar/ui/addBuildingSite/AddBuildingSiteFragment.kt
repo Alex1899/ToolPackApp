@@ -32,7 +32,6 @@ class AddBuildingSiteFragment : Fragment() {
         val fragmentBinding = FragmentAddBuildingSiteBinding.inflate(inflater, container, false)
         binding = fragmentBinding
         return fragmentBinding.root
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

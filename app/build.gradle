@@ -78,4 +78,7 @@ dependencies {
 
     //added for Multidex support
     implementation "androidx.multidex:multidex:2.0.1"
+
+    // FirebaseUI for Cloud Firestore
+    implementation 'com.firebaseui:firebase-ui-firestore:6.2.1'
 }

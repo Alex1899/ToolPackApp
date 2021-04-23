@@ -58,4 +58,7 @@
     <string name="spinner_selectBuildingsite">Select a building-Site: </string>
     <string name="packageDescripton">Package Description</string>
 
+    <!--    package_row.xml strings-->
+    <string name="btn_updatePackageDetails">Update Details</string>
+
 </resources>

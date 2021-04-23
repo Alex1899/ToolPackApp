@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="10dp"
+    android:orientation="vertical"
+    app:cardCornerRadius="10dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:background="#EBDEF0"
+        android:orientation="vertical">
+
+<!--        <TextView-->
+<!--            android:id="@+id/packageDriver"-->
+<!--            android:layout_width="114dp"-->
+<!--            android:layout_height="42dp"-->
+<!--            android:textColor="@color/black"-->
+<!--            tools:ignore="MissingConstraints"-->
+<!--            tools:layout_editor_absoluteX="262dp"-->
+<!--            tools:layout_editor_absoluteY="16dp" />-->
+
+        <TextView
+            android:id="@+id/DeliveryTime"
+            android:layout_width="113dp"
+            android:layout_height="35dp"
+            android:textColor="@color/black"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteX="262dp"
+            tools:layout_editor_absoluteY="64dp" />
+
+        <Button
+            android:id="@+id/updateStatus"
+            android:layout_width="251dp"
+            android:layout_height="48dp"
+            android:text="@string/btn_updatePackageDetails"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteX="124dp"
+            tools:layout_editor_absoluteY="102dp" />
+
+        <TextView
+            android:id="@+id/deliveryDate"
+            android:layout_width="115dp"
+            android:layout_height="37dp"
+            android:textColor="@color/black"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteX="126dp"
+            tools:layout_editor_absoluteY="63dp" />
+
+        <ImageView
+            android:id="@+id/packagePhoto"
+            android:layout_width="91dp"
+            android:layout_height="81dp"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteX="16dp"
+            tools:layout_editor_absoluteY="16dp" />
+
+        <TextView
+            android:id="@+id/packageVendor"
+            android:layout_width="114dp"
+            android:layout_height="40dp"
+            android:textColor="@color/black"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteX="126dp"
+            tools:layout_editor_absoluteY="16dp" />
+
+        <TextView
+            android:id="@+id/packageStatus"
+            android:layout_width="92dp"
+            android:layout_height="35dp"
+            android:textColor="@color/black"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteX="16dp"
+            tools:layout_editor_absoluteY="106dp" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>
