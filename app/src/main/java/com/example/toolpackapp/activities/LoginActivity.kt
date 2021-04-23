@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.toolpackapp.R
 import com.example.toolpackapp.activities.driver.DriverUpdateDetailsActivity
 import com.example.toolpackapp.activities.driver.DriverViewPackagesActivity
+import com.example.toolpackapp.activities.driver.bottomNav.DriverMainViewActivity
 import com.example.toolpackapp.activities.manager.ManagerMainActivity
 import com.example.toolpackapp.firestore.FirestoreClass
 import com.example.toolpackapp.models.User
@@ -101,7 +102,7 @@ class LoginActivity : AppCompatActivity() {
                     intent.putExtra("user_details", user)
                     startActivity(intent)
                 }else{
-                    startActivity(Intent(this@LoginActivity, DriverViewPackagesActivity::class.java))
+                    startActivity(Intent(this@LoginActivity, DriverMainViewActivity::class.java))
 
                 }
             }

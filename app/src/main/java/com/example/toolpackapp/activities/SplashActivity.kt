@@ -8,6 +8,8 @@ import android.view.WindowInsets
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import com.example.toolpackapp.R
+import com.example.toolpackapp.activities.driver.DriverViewPackagesActivity
+import com.example.toolpackapp.activities.driver.bottomNav.DriverMainViewActivity
 
 class SplashActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

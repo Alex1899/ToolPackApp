@@ -6,6 +6,7 @@ import android.net.Uri
 import android.util.Log
 import com.example.toolpackapp.activities.LoginActivity
 import com.example.toolpackapp.activities.driver.DriverUpdateDetailsActivity
+import com.example.toolpackapp.activities.driver.bottomNav.DriverMainViewActivity
 import com.example.toolpackapp.activities.manager.ui.addDriver.AddDriverFragment
 import com.example.toolpackapp.models.User
 import com.example.toolpackapp.utils.getFileExtension
@@ -40,7 +41,6 @@ class FirestoreClass {
             .document(getCurrentUserID())
             .get()
             .addOnSuccessListener { document ->
-                Log.i("FirestoreClass", document.toString())
                 if (document == null) {
                     Log.d("FirestoreClass", "There is no document for this user")
                 } else {
@@ -57,62 +57,85 @@ class FirestoreClass {
             }
     }
 
-    fun getCurrentUserID(): String {
-        val currentUser = FirebaseAuth.getInstance().currentUser
-        var currentUserId = ""
-        if (currentUser !== null) {
-            currentUserId = currentUser.uid
-        }
-
-        return currentUserId
-    }
-
-    fun updateUserDetails(activity: Activity, hashmap: HashMap<String, Any>) {
-        mFireStore.collection("users").document(getCurrentUserID())
-            .update(hashmap)
-            .addOnSuccessListener {
-                when (activity) {
-                    is DriverUpdateDetailsActivity -> {
-                        activity.userProfileCompleteSuccess()
+    fun getCurrentUserDetailsAsObject(activity: Activity){
+        mFireStore.collection("users")
+            .document(getCurrentUserID())
+            .get()
+            .addOnSuccessListener { document ->
+                if (document == null) {
+                    Log.d("FirestoreClass", "There is no document for this user")
+                } else {
+                    val user = document.toObject(User::class.java)!!
+                    when(activity){
+                        is DriverMainViewActivity -> {
+                            activity.setCurrentUser(user)
+                        }
                     }
                 }
             }
             .addOnFailureListener { e ->
-                when (activity) {
-                    is DriverUpdateDetailsActivity -> {
-                        activity.userProfileCompleteError()
-                    }
-                }
-                Log.e("FirestoreClass", "Error while updating user details", e)
+                Log.e("FirestoreClass", "Error while getting user", e)
             }
+
     }
 
-    fun uploadImageToStorage(activity: Activity, imageFileUri: Uri?) {
-        val sRef: StorageReference = FirebaseStorage.getInstance().reference.child(
-            "user_profile_image" + System.currentTimeMillis() + "." + getFileExtension(
-                activity,
-                imageFileUri
-            )
-        )
-        sRef.putFile(imageFileUri!!).addOnSuccessListener { taskSnapshot ->
-            Log.e("Firebase Image Url", taskSnapshot.metadata!!.reference!!.downloadUrl.toString())
-            taskSnapshot.metadata!!.reference!!.downloadUrl
-                .addOnSuccessListener { uri ->
-                    Log.e("Downloadable Image Url", uri.toString())
-                    when (activity) {
-                        is DriverUpdateDetailsActivity -> {
-                            activity.imageUploadSuccess(uri.toString())
-                        }
-                    }
+
+fun getCurrentUserID(): String {
+    val currentUser = FirebaseAuth.getInstance().currentUser
+    var currentUserId = ""
+    if (currentUser !== null) {
+        currentUserId = currentUser.uid
+    }
+
+    return currentUserId
+}
+
+fun updateUserDetails(activity: Activity, hashmap: HashMap<String, Any>) {
+    mFireStore.collection("users").document(getCurrentUserID())
+        .update(hashmap)
+        .addOnSuccessListener {
+            when (activity) {
+                is DriverUpdateDetailsActivity -> {
+                    activity.userProfileCompleteSuccess()
                 }
+            }
         }
-            .addOnFailureListener { exception ->
+        .addOnFailureListener { e ->
+            when (activity) {
+                is DriverUpdateDetailsActivity -> {
+                    activity.userProfileCompleteError()
+                }
+            }
+            Log.e("FirestoreClass", "Error while updating user details", e)
+        }
+}
+
+fun uploadImageToStorage(activity: Activity, imageFileUri: Uri?) {
+    val sRef: StorageReference = FirebaseStorage.getInstance().reference.child(
+        "user_profile_image" + System.currentTimeMillis() + "." + getFileExtension(
+            activity,
+            imageFileUri
+        )
+    )
+    sRef.putFile(imageFileUri!!).addOnSuccessListener { taskSnapshot ->
+        Log.e("Firebase Image Url", taskSnapshot.metadata!!.reference!!.downloadUrl.toString())
+        taskSnapshot.metadata!!.reference!!.downloadUrl
+            .addOnSuccessListener { uri ->
+                Log.e("Downloadable Image Url", uri.toString())
                 when (activity) {
                     is DriverUpdateDetailsActivity -> {
-                        activity.userProfileCompleteError()
+                        activity.imageUploadSuccess(uri.toString())
                     }
                 }
             }
     }
-    }
+        .addOnFailureListener { exception ->
+            when (activity) {
+                is DriverUpdateDetailsActivity -> {
+                    activity.userProfileCompleteError()
+                }
+            }
+        }
+}
+}
 

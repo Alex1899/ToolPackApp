@@ -1,4 +1,4 @@
-package com.example.toolpackapp.activities.manager
+package com.example.toolpackapp.activities.driver.bottomNav
 
 import android.content.Intent
 import android.os.Bundle
@@ -6,8 +6,6 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
-import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
@@ -15,44 +13,39 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.toolpackapp.R
 import com.example.toolpackapp.activities.LoginActivity
-import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.android.material.navigation.NavigationView
-import com.google.android.material.snackbar.Snackbar
+import com.example.toolpackapp.activities.driver.DriverUpdateDetailsActivity
+import com.example.toolpackapp.firestore.FirestoreClass
+import com.example.toolpackapp.models.User
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 
-class ManagerMainActivity : AppCompatActivity()  {
+class DriverMainViewActivity : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
+    private var currentUser: User? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_navigation_drawer)
-        val toolbar: Toolbar = findViewById(R.id.toolbar)
-        setSupportActionBar(toolbar)
+        setContentView(R.layout.activity_driver_main_bottom_navbar)
+        val navView: BottomNavigationView = findViewById(R.id.nav_view_bottombar)
 
-        val fab: FloatingActionButton = findViewById(R.id.fab)
-        fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your custom action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
-        }
-
-        val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
-        val navView: NavigationView = findViewById(R.id.nav_view_sidebar)
-        val navController = findNavController(R.id.nav_host_fragment_sidebar)
+        val navController = findNavController(R.id.nav_host_fragment_bottombar)
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         appBarConfiguration = AppBarConfiguration(
             setOf(
-               R.id.nav_home ,R.id.addBuildingSiteFragment, R.id.addDriverFragment, R.id.addVendorFragment, R.id.addPackageFragment
-            ), drawerLayout
+                R.id.homeFragment, R.id.navigation_dashboard, R.id.navigation_notifications
+            )
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+        FirestoreClass().getCurrentUserDetailsAsObject(this@DriverMainViewActivity)
     }
+
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
-        menuInflater.inflate(R.menu.navigation_drawer_manager, menu)
+        menuInflater.inflate(R.menu.navigation_drawer_driver, menu)
         return true
     }
 
@@ -60,9 +53,18 @@ class ManagerMainActivity : AppCompatActivity()  {
         return when (item.itemId) {
             R.id.action_logout -> {
                 // logout user
-                Log.d("MyApp","User Logged Out");
+                Log.d("MyApp", "User Logged Out");
                 FirebaseAuth.getInstance().signOut()
-                startActivity(Intent(this@ManagerMainActivity, LoginActivity::class.java))
+                val intent = Intent(this@DriverMainViewActivity, LoginActivity::class.java)
+                startActivity(intent)
+                true
+            }
+            R.id.action_account -> {
+                val intent = Intent(this@DriverMainViewActivity, DriverUpdateDetailsActivity::class.java)
+                if(currentUser != null){
+                    intent.putExtra("user_details", currentUser)
+                    startActivity(intent)
+                }
                 true
             }
             else -> {
@@ -72,7 +74,12 @@ class ManagerMainActivity : AppCompatActivity()  {
     }
 
     override fun onSupportNavigateUp(): Boolean {
-        val navController = findNavController(R.id.nav_host_fragment_sidebar)
+        val navController = findNavController(R.id.nav_host_fragment_bottombar)
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
+
+    fun setCurrentUser(user: User){
+        currentUser = user
+    }
+
 }
