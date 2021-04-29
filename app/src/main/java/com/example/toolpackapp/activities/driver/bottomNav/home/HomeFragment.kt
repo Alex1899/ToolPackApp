@@ -1,31 +1,77 @@
 package com.example.toolpackapp.activities.driver.bottomNav.home
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
-import com.example.toolpackapp.R
+import androidx.recyclerview.widget.RecyclerView
+import com.example.toolpackapp.activities.driver.DriverPackageAdapter
+import com.example.toolpackapp.databinding.FragmentHomeDriverBinding
+import com.example.toolpackapp.firestore.FirestoreClass
+import com.example.toolpackapp.models.PackageListItem
+import com.example.toolpackapp.utils.hideDialog
+import com.example.toolpackapp.utils.showDialog
+import com.example.toolpackapp.utils.showErrorSnackBar
+import java.util.ArrayList
 
 class HomeFragment : Fragment() {
+    private var binding: FragmentHomeDriverBinding? = null
+    private var packageItemsList = ArrayList<PackageListItem>()
+    private lateinit var recyclerView: RecyclerView
 
-  private lateinit var homeViewModel: HomeViewModel
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        val fragmentBinding = FragmentHomeDriverBinding.inflate(inflater, container, false)
+        binding = fragmentBinding
+        return fragmentBinding.root
+    }
 
-  override fun onCreateView(
-    inflater: LayoutInflater,
-    container: ViewGroup?,
-    savedInstanceState: Bundle?
-  ): View? {
-    homeViewModel =
-            ViewModelProvider(this).get(HomeViewModel::class.java)
-    val root = inflater.inflate(R.layout.fragment_home, container, false)
-    val textView: TextView = root.findViewById(R.id.text_home)
-    homeViewModel.text.observe(viewLifecycleOwner, Observer {
-      textView.text = it
-    })
-    return root
-  }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        showDialog(requireContext())
+        recyclerView = binding?.driverRecycleview!!
+        FirestoreClass().getDriverPackages(this@HomeFragment)
+        recyclerView.setHasFixedSize(true)
+        recyclerView.adapter = DriverPackageAdapter(requireContext(), packageItemsList){ id -> onClick(id)}
+
+    }
+
+    private fun onClick(id: String) {
+        val packageMap = HashMap<String, Any>()
+        packageMap["status"] = "delivered"
+        FirestoreClass().markPackageAsDelivered(this@HomeFragment, id, packageMap)
+    }
+
+
+    fun getDriverPackagesSuccess(arr: ArrayList<PackageListItem>){
+        packageItemsList.addAll(arr)
+        binding?.driverHomeTextview?.visibility = View.GONE
+        Log.d("HomeFragment", arr.toString())
+        recyclerView.adapter?.notifyDataSetChanged()
+        hideDialog()
+    }
+
+    fun getDriverPackagesError(msg: String? = null){
+        hideDialog()
+        binding?.driverHomeTextview?.text= msg?:"No packages to deliver"
+
+    }
+
+    fun markPackageDeliveredSuccess(packageItem: PackageListItem){
+        hideDialog()
+        packageItemsList.remove(packageItem)
+        recyclerView.adapter?.notifyDataSetChanged()
+        showErrorSnackBar(binding?.driverRecycleview!!, "Package Delivered!", false)
+    }
+
+    fun markPackageDeliveredError(msg: String? = null){
+        hideDialog()
+        showErrorSnackBar(binding?.driverRecycleview!!, msg?:"Error when updating package status", true)
+    }
+
 }

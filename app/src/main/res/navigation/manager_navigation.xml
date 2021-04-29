@@ -14,21 +14,21 @@
     <fragment
         android:id="@+id/addDriverFragment"
         android:name="com.example.toolpackapp.activities.manager.ui.addDriver.AddDriverFragment"
-        android:label="add_driver_fragment"
+        android:label="Add Driver"
         tools:layout="@layout/add_driver_fragment" />
     <fragment
         android:id="@+id/addBuildingSiteFragment"
         android:name="com.example.toolpackapp.activities.manager.ui.addBuildingSite.AddBuildingSiteFragment"
-        android:label="fragment_add_building_site"
+        android:label="Add Building Site"
         tools:layout="@layout/fragment_add_building_site" />
     <fragment
         android:id="@+id/addPackageFragment"
         android:name="com.example.toolpackapp.activities.manager.ui.addPackage.AddPackageFragment"
-        android:label="fragment_add_package"
+        android:label="Add Package"
         tools:layout="@layout/fragment_add_package" />
     <fragment
         android:id="@+id/addVendorFragment"
         android:name="com.example.toolpackapp.activities.manager.ui.addVendor.AddVendorFragment"
-        android:label="fragment_add_vendor"
+        android:label="Add Vendor"
         tools:layout="@layout/fragment_add_vendor" />
 </navigation>

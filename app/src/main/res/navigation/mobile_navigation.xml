@@ -6,12 +6,6 @@
     app:startDestination="@id/homeFragment">
 
     <fragment
-        android:id="@+id/navigation_dashboard"
-        android:name="com.example.toolpackapp.activities.driver.bottomNav.dashboard.DashboardFragment"
-        android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_dashboard" />
-
-    <fragment
         android:id="@+id/navigation_notifications"
         android:name="com.example.toolpackapp.activities.driver.bottomNav.notifications.NotificationsFragment"
         android:label="@string/title_notifications"
@@ -20,5 +14,14 @@
         android:id="@+id/homeFragment"
         android:name="com.example.toolpackapp.activities.driver.bottomNav.home.HomeFragment"
         android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home_driver" />
+    <fragment
+        android:id="@+id/driverAccountFragment"
+        android:name="com.example.toolpackapp.activities.driver.bottomNav.account.DriverAccountFragment"
+        android:label="Profile"
+        tools:layout="@layout/fragment_driver_account" >
+        <argument
+            android:name="user_phone"
+            app:argType="string" />
+    </fragment>
 </navigation>

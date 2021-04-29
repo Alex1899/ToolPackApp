@@ -1,11 +1,15 @@
 package com.example.toolpackapp.activities.driver.bottomNav
 
+import android.app.Activity
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.os.bundleOf
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
@@ -13,16 +17,22 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.toolpackapp.R
 import com.example.toolpackapp.activities.LoginActivity
-import com.example.toolpackapp.activities.driver.DriverUpdateDetailsActivity
+import com.example.toolpackapp.activities.driver.bottomNav.account.DriverAccountFragment
 import com.example.toolpackapp.firestore.FirestoreClass
 import com.example.toolpackapp.models.User
+import com.example.toolpackapp.utils.GlideLoader
+import com.example.toolpackapp.utils.hideDialog
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
+
 
 class DriverMainViewActivity : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
     private var currentUser: User? = null
+    private var bundle = bundleOf()
+    private var selectedImage: Uri? = null
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,11 +44,26 @@ class DriverMainViewActivity : AppCompatActivity() {
         // menu should be considered as top level destinations.
         appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.homeFragment, R.id.navigation_dashboard, R.id.navigation_notifications
+                R.id.homeFragment, R.id.driverAccountFragment, R.id.navigation_notifications
             )
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+        navView.setOnNavigationItemSelectedListener { item ->
+            Log.d("DriverMain", "$item")
+            Log.d("DriverMain", "${item.itemId}")
+
+            when (item.itemId) {
+                R.id.driverAccountFragment -> {
+                    navController.navigate(item.itemId, bundle)
+                    true
+                }
+                else -> {
+                    navController.navigate(item.itemId)
+                    true
+                }
+            }
+        }
         FirestoreClass().getCurrentUserDetailsAsObject(this@DriverMainViewActivity)
     }
 
@@ -57,14 +82,7 @@ class DriverMainViewActivity : AppCompatActivity() {
                 FirebaseAuth.getInstance().signOut()
                 val intent = Intent(this@DriverMainViewActivity, LoginActivity::class.java)
                 startActivity(intent)
-                true
-            }
-            R.id.action_account -> {
-                val intent = Intent(this@DriverMainViewActivity, DriverUpdateDetailsActivity::class.java)
-                if(currentUser != null){
-                    intent.putExtra("user_details", currentUser)
-                    startActivity(intent)
-                }
+                finish()
                 true
             }
             else -> {
@@ -73,13 +91,26 @@ class DriverMainViewActivity : AppCompatActivity() {
         }
     }
 
+
     override fun onSupportNavigateUp(): Boolean {
         val navController = findNavController(R.id.nav_host_fragment_bottombar)
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
 
-    fun setCurrentUser(user: User){
+    fun setCurrentUser(user: User) {
         currentUser = user
+        val userMap = Bundle()
+        userMap.putString("photo", user.photo)
+        userMap.putString("phone", user.mobile)
+        userMap.putString("fullname", user.fullname)
+        userMap.putString("email", user.email)
+
+        bundle.putBundle("user_details", userMap)
+    }
+
+    fun userProfileCompleteError(){
+        hideDialog()
+        Toast.makeText(this, "Error while completing profile", Toast.LENGTH_SHORT).show()
     }
 
 }

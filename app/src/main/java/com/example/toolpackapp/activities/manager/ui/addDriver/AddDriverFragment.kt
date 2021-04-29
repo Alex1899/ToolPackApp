@@ -8,12 +8,15 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.toolpackapp.R
-import com.example.toolpackapp.utils.hideDialog
-import com.example.toolpackapp.utils.showDialog
-import com.example.toolpackapp.utils.showErrorSnackBar
+
 import com.example.toolpackapp.databinding.AddDriverFragmentBinding
 import com.example.toolpackapp.firestore.FirestoreClass
 import com.example.toolpackapp.models.User
+
+import com.example.toolpackapp.utils.hideDialog
+import com.example.toolpackapp.utils.setErrorTextField
+import com.example.toolpackapp.utils.showDialog
+import com.example.toolpackapp.utils.showErrorSnackBar
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
@@ -26,9 +29,10 @@ class AddDriverFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         val fragmentBinding = AddDriverFragmentBinding.inflate(inflater, container, false)
         binding = fragmentBinding
+
         return fragmentBinding.root
 
     }
@@ -45,19 +49,22 @@ class AddDriverFragment : Fragment() {
     private fun validateRegisterDetails(view: View): Boolean {
         return when {
             TextUtils.isEmpty(
-                binding?.driverfullname?.text.toString().trim { it <= ' ' }) -> {
-                showErrorSnackBar(view, resources.getString(R.string.err_msg_enter_full_name), true)
+                binding?.driverfullnameInputText?.text.toString().trim { it <= ' ' }) -> {
+                setErrorTextField(binding?.driverfullnameInput!!, true,resources.getString(R.string.err_msg_enter_full_name))
+                //showErrorSnackBar(view, resources.getString(R.string.err_msg_enter_full_name), true)
                 false
             }
             TextUtils.isEmpty(
-                binding?.driverEmail?.text.toString().trim { it <= ' ' }) -> {
-                showErrorSnackBar(view, resources.getString(R.string.err_msg_enter_username), true)
+                binding?.driverEmailInputText?.text.toString().trim { it <= ' ' }) -> {
+                setErrorTextField(binding?.driverEmailInput!!, true,resources.getString(R.string.err_msg_enter_username))
+                //showErrorSnackBar(view, resources.getString(R.string.err_msg_enter_username), true)
                 false
             }
 
             TextUtils.isEmpty(
-                binding?.driverPassword?.text.toString().trim { it <= ' ' }) -> {
-                showErrorSnackBar(view, resources.getString(R.string.err_msg_enter_password), true)
+                binding?.driverPasswordInputText?.text.toString().trim { it <= ' ' }) -> {
+                setErrorTextField(binding?.driverPasswordInput!!, true,resources.getString(R.string.err_msg_enter_password))
+                //showErrorSnackBar(view, resources.getString(R.string.err_msg_enter_password), true)
                 false
             }
             else -> {
@@ -73,10 +80,10 @@ class AddDriverFragment : Fragment() {
             showDialog(requireContext())
 
             val email: String =
-                binding?.driverEmail?.text.toString().trim { it <= ' ' }
+                binding?.driverEmailInputText?.text.toString().trim { it <= ' ' }
             val password: String =
-                binding?.driverPassword?.text.toString().trim { it <= ' ' }
-            val fullname: String = binding?.driverfullname?.text.toString().trim { it <= ' ' }
+                binding?.driverPasswordInputText?.text.toString().trim { it <= ' ' }
+            val fullname: String = binding?.driverfullnameInputText?.text.toString().trim { it <= ' ' }
 
             //Log.d("AddDriver", "email: ${email}, fullname: $fullname")
 
@@ -96,7 +103,7 @@ class AddDriverFragment : Fragment() {
                                 "",
                                 "driver"
                             )
-                            FirestoreClass().registerUser(this, user )
+                            FirestoreClass().registerUser(this, user)
                             //FirebaseAuth.getInstance().signOut()
                             //finish()
                         } else {
@@ -109,15 +116,25 @@ class AddDriverFragment : Fragment() {
         }
     }
 
-    fun driverAddedSuccess(){
+    fun driverAddedSuccess() {
         hideDialog()
-        Toast.makeText(requireContext(), "Driver added successfully", Toast.LENGTH_LONG ).show()
+        showErrorSnackBar(binding?.driverEmailInput!!, "Driver added successfully", false)
+    }
+
+    fun driverAddError(msg: String? = null) {
+        hideDialog()
+        showErrorSnackBar(binding?.driverEmailInput!!, msg ?: "Driver added successfully", true)
     }
 
     private fun clearAddDriverForm() {
-        binding?.driverEmail?.setText("")
-        binding?.driverPassword?.setText("")
-        binding?.driverfullname?.setText("")
+        binding?.driverEmailInputText?.setText("")
+        binding?.driverEmailInput?.isErrorEnabled = false
+
+        binding?.driverPasswordInputText?.setText("")
+        binding?.driverPasswordInput?.isErrorEnabled = false
+
+        binding?.driverfullnameInputText?.setText("")
+        binding?.driverfullnameInput?.isErrorEnabled = false
     }
 
 }

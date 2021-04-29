@@ -1,142 +1,146 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    tools:context=".activities.driver.bottomNav.account.DriverAccountFragment">
 
-    tools:context=".activities.manager.ui.addDriver.AddDriverFragment">
 
     <ScrollView
-        android:id="@+id/add_fragment_content"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        android:scrollbars="none"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            >
 
             <FrameLayout
-                android:id="@+id/frameLayout2"
-                android:layout_width="wrap_content"
-                android:layout_height="@dimen/auth_header_image_height"
+                android:id="@+id/fl_user_image"
+                android:layout_width="@dimen/profile_user_image_size"
+                android:layout_height="@dimen/profile_user_image_size"
+                android:layout_marginTop="20dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
                 <ImageView
+                    android:id="@+id/iv_user_photo"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:contentDescription="@string/content_desc"
+                    android:layout_margin="10dp"
                     android:scaleType="fitXY"
-                    android:src="@drawable/auth_header_image" />
+                    android:src="@drawable/ic_baseline_person_24" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/user_image_background"
+                    />
+
             </FrameLayout>
 
-            <TextView
-                android:id="@+id/title_add_driver"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="30dp"
-                android:text="Create an account for the driver"
-                android:textColor="@color/black"
-                android:textSize="20sp"
-                android:textAlignment="center"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintBottom_toTopOf="@+id/driverfullname_input"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/frameLayout2" />
-
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/driverfullname_input"
+                android:id="@+id/fullname_input"
                 style="@style/Widget.ToolPackApp.TextInputLayout.OutlinedBox"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
                 android:layout_marginBottom="10dp"
+
                 android:hint="Fullname"
                 app:errorIconDrawable="@drawable/ic_error"
                 app:helperTextTextAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
-                app:layout_constraintBottom_toTopOf="@+id/driverEmail_input"
+                app:layout_constraintBottom_toTopOf="@+id/email_input"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/title_add_driver">
+                app:layout_constraintTop_toBottomOf="@+id/fl_user_image">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/driverfullname_input_text"
+                    android:id="@+id/fullname_input_text"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:inputType="textPersonName|textNoSuggestions"
                     android:maxLines="1" />
             </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/driverEmail_input"
-                style="@style/Widget.ToolPackApp.TextInputLayout.OutlinedBox"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:layout_marginBottom="15dp"
-                android:hint="E-mail"
-                app:errorIconDrawable="@drawable/ic_error"
-                app:helperTextTextAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
-                app:layout_constraintBottom_toTopOf="@+id/driverPassword_input"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/driverfullname_input">
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/driverEmail_input_text"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:inputType="textPersonName|textNoSuggestions"
-                    android:maxLines="1" />
-            </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/driverPassword_input"
+                android:id="@+id/email_input"
                 style="@style/Widget.ToolPackApp.TextInputLayout.OutlinedBox"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
                 android:layout_marginBottom="10dp"
-                android:hint="Password"
+
+                android:hint="E-mail"
                 app:errorIconDrawable="@drawable/ic_error"
                 app:helperTextTextAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
-                app:layout_constraintBottom_toTopOf="@+id/button_register"
+                app:layout_constraintBottom_toTopOf="@+id/mobile_input"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/driverEmail_input">
+                app:layout_constraintTop_toBottomOf="@+id/fullname_input">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/driverPassword_input_text"
+                    android:id="@+id/email_input_text"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:inputType="textPassword|textNoSuggestions"
+                    android:inputType="textPersonName|textNoSuggestions"
+                    android:maxLines="1" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/mobile_input"
+                style="@style/Widget.ToolPackApp.TextInputLayout.OutlinedBox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:hint="Phone Number"
+                app:errorIconDrawable="@drawable/ic_error"
+                app:helperTextTextAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+                app:layout_constraintBottom_toTopOf="@+id/save_btn"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/email_input">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/mobile_input_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:inputType="number|textNoSuggestions"
                     android:maxLines="1" />
             </com.google.android.material.textfield.TextInputLayout>
 
 
             <Button
-                android:id="@+id/button_register"
+                android:id="@+id/save_btn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
-                android:text="Create Account"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/driverPassword_input" />
+                android:text="SAVE"
+                app:layout_constraintTop_toBottomOf="@+id/mobile_input" />
 
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
+
+
+
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

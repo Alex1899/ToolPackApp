@@ -31,42 +31,61 @@
         android:text="@string/title_login"
         android:textColor="@color/black"
         android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/loginEmail"
+        app:layout_constraintBottom_toTopOf="@+id/loginEmail_input"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/frameLayout"
         app:layout_constraintVertical_bias="0.279" />
 
-    <EditText
-        android:id="@+id/loginEmail"
-        android:layout_width="match_parent"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/loginEmail_input"
+        style="@style/Widget.ToolPackApp.TextInputLayout.OutlinedBox"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        android:ems="10"
-        android:hint="Email"
-        android:inputType="textEmailAddress"
-        app:layout_constraintBottom_toTopOf="@+id/loginPassword"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/title_login" />
-
-    <EditText
-        android:id="@+id/loginPassword"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:ems="10"
+        android:layout_marginBottom="10dp"
+        android:hint="E-mail"
+        app:errorIconDrawable="@drawable/ic_error"
+        app:helperTextTextAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+        app:layout_constraintBottom_toTopOf="@+id/loginPassword_input"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/title_login">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/loginEmail_input_text"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:inputType="textPersonName|textNoSuggestions"
+            android:maxLines="1" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/loginPassword_input"
+        style="@style/Widget.ToolPackApp.TextInputLayout.OutlinedBox"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
         android:hint="Password"
-        android:inputType="textPassword"
+        app:errorIconDrawable="@drawable/ic_error"
+        app:helperTextTextAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
         app:layout_constraintBottom_toTopOf="@+id/forgot_pwd"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/loginEmail"
-        app:layout_constraintVertical_bias="0.16" />
+        app:layout_constraintTop_toBottomOf="@+id/loginEmail_input">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/loginPassword_input_text"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:inputType="textPassword|textNoSuggestions"
+            android:maxLines="1" />
+    </com.google.android.material.textfield.TextInputLayout>
+
 
     <TextView
         android:id="@+id/forgot_pwd"
@@ -75,8 +94,8 @@
         android:layout_margin="10dp"
         android:textSize="15sp"
         android:text="Forgot password?"
-        app:layout_constraintTop_toBottomOf="@id/loginPassword"
-        app:layout_constraintEnd_toEndOf="@id/loginPassword"
+        app:layout_constraintTop_toBottomOf="@id/loginPassword_input"
+        app:layout_constraintEnd_toEndOf="@id/loginPassword_input"
         />
 
     <Button
