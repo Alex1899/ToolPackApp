@@ -24,6 +24,7 @@ class ManagerHomeFragment : Fragment() {
     private lateinit var recyclerView: RecyclerView
     private var packageItemsList = ArrayList<PackageListItem>()
     private var packageItemsBackUp = ArrayList<PackageListItem>()
+    private var filterString: String = "Select status"
 
 
     override fun onCreateView(
@@ -38,19 +39,20 @@ class ManagerHomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        loadPackageStatus("Select status")
+        loadPackageStatus()
     }
 
     override fun onResume(){
         super.onResume()
-        if(packageItemsList.isNotEmpty()){
+        if(packageItemsList.isNotEmpty() && packageItemsBackUp.isNotEmpty()){
             packageItemsList.clear()
+            packageItemsBackUp.clear()
         }
         startFetching()
 
     }
 
-    private fun loadPackageStatus(status: String){
+    private fun loadPackageStatus(){
         val statusList = ArrayList<String>()
         statusList.addAll(listOf("Select status","Pending", "Delivered"))
 
@@ -61,17 +63,17 @@ class ManagerHomeFragment : Fragment() {
         )
         //adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         binding?.selectPackageTypeSpinner?.setAdapter(adapter)
-        binding?.selectPackageTypeSpinner?.setText(status, false)
+        binding?.selectPackageTypeSpinner?.setText(filterString, false)
         binding?.selectPackageTypeSpinner?.setOnItemClickListener { _, _, position, _ ->
             val value = adapter.getItem(position)!!
             Log.d("Adapter Click", "clicked on $value")
-            filterPackages(value)
+            filterString = value
+            filterPackages(filterString)
         }
 
     }
 
-    private fun filterPackages(status: String){
-
+    fun filterPackages(status: String){
         val newList = if(status == "Select status"){
             packageItemsBackUp
         }else{
@@ -91,8 +93,8 @@ class ManagerHomeFragment : Fragment() {
         recyclerView.adapter = ManagerPackageAdapter(requireContext(), packageItemsList)
     }
     fun setPackageItemsList(arr: ArrayList<PackageListItem>){
-        packageItemsList.addAll(arr)
         packageItemsBackUp.addAll(arr)
+        filterPackages(filterString)
         binding?.managerHomeTextview?.visibility = View.GONE
         Log.d("HomeFragment", arr.toString())
         recyclerView.adapter?.notifyDataSetChanged()
