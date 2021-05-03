@@ -7,12 +7,19 @@ import android.content.Intent
 import android.graphics.Color
 import android.net.Uri
 import android.provider.MediaStore
+import android.util.Log
 import android.view.View
 import android.webkit.MimeTypeMap
 import androidx.fragment.app.Fragment
 import com.example.toolpackapp.R
+import com.example.toolpackapp.firebaseNotifications.PushNotification
+import com.example.toolpackapp.firebaseNotifications.RetrofitInstance
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputLayout
+import com.google.gson.Gson
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 
 var dialog: Dialog? = null
@@ -80,6 +87,22 @@ fun setErrorTextField(textField: TextInputLayout, error: Boolean, msg: String) {
     } else {
         textField.isErrorEnabled = false
         //textInputEditText.text = null
+    }
+}
+
+
+
+fun sendNotification(notification: PushNotification) = CoroutineScope(Dispatchers.IO).launch {
+    val TAG = "Notification"
+    try {
+        val response = RetrofitInstance.api.postNotification(notification)
+        if(response.isSuccessful){
+            Log.d(TAG, "Response: ${Gson().toJson(response)}")
+        }else{
+            Log.e(TAG, response.errorBody().toString())
+        }
+    } catch(e: Exception){
+        Log.e(TAG, e.toString())
     }
 }
 

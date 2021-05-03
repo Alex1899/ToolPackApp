@@ -73,7 +73,7 @@ class ManagerHomeFragment : Fragment() {
 
     }
 
-    fun filterPackages(status: String){
+    private fun filterPackages(status: String){
         val newList = if(status == "Select status"){
             packageItemsBackUp
         }else{
@@ -85,7 +85,7 @@ class ManagerHomeFragment : Fragment() {
     }
 
 
-    fun startFetching(){
+    private fun startFetching(){
         showDialog(requireContext())
         recyclerView = binding?.managerRecycleview!!
         FirestoreClass().getAllPackages(this@ManagerHomeFragment)

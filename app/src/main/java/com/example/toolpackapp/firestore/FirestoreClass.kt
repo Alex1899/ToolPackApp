@@ -123,7 +123,7 @@ class FirestoreClass {
             .addOnSuccessListener { document ->
                 val user = document.toObject(User::class.java)!!
                 mFireStore.collection("packages").whereEqualTo("driver", user.fullname)
-                    .whereEqualTo("status", "pending").get()
+                    .whereEqualTo("status", "Pending").get()
                     .addOnCompleteListener { task ->
                         val resultList = getPackageItemList(task, list)
                         when (fragment) {

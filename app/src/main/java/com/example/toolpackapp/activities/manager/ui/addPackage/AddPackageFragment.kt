@@ -7,20 +7,16 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.toolpackapp.databinding.FragmentAddPackageBinding
+import com.example.toolpackapp.firebaseNotifications.Constants.Companion.TOPIC
+import com.example.toolpackapp.firebaseNotifications.NotificationsData
+import com.example.toolpackapp.firebaseNotifications.PushNotification
 import com.example.toolpackapp.firestore.FirestoreClass
-import com.example.toolpackapp.utils.hideDialog
-import com.example.toolpackapp.utils.setErrorTextField
-import com.example.toolpackapp.utils.showDialog
-import com.example.toolpackapp.utils.showErrorSnackBar
+import com.example.toolpackapp.utils.*
+import com.google.firebase.messaging.FirebaseMessaging
 import java.text.SimpleDateFormat
 import java.util.*
 
 
-/**
- * A simple [Fragment] subclass.
- * Use the [AddPackageFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class AddPackageFragment : Fragment() {
 
     private var binding: FragmentAddPackageBinding? = null
@@ -33,6 +29,7 @@ class AddPackageFragment : Fragment() {
 
         val fragmentBinding = FragmentAddPackageBinding.inflate(inflater, container, false)
         binding = fragmentBinding
+
 
         return fragmentBinding.root
     }
@@ -165,6 +162,19 @@ class AddPackageFragment : Fragment() {
     fun addPackageSuccess() {
         hideDialog()
         showErrorSnackBar(binding?.packageDescriptionInput!!, "Package added successfully", false)
+        notifyDriver()
+    }
+
+    private fun notifyDriver(){
+        val title = "New Package"
+        val message = "Hi! You have a new package to deliver"
+        PushNotification(
+            NotificationsData(title, message),
+            TOPIC
+        ).also {
+            sendNotification(it)
+        }
+
     }
 
     fun addPackageError() {
