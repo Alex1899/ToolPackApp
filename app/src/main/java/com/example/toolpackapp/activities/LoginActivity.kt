@@ -17,12 +17,14 @@ import com.example.toolpackapp.activities.driver.bottomNav.account.DriverAccount
 import com.example.toolpackapp.activities.manager.ManagerMainActivity
 import com.example.toolpackapp.databinding.ActivityLoginBinding
 import com.example.toolpackapp.databinding.ActivityManagerEditPackageDetailsBinding
+import com.example.toolpackapp.firebaseNotifications.FirebaseService
 import com.example.toolpackapp.firestore.FirestoreClass
 import com.example.toolpackapp.models.User
 import com.example.toolpackapp.utils.hideDialog
 import com.example.toolpackapp.utils.setErrorTextField
 import com.example.toolpackapp.utils.showErrorSnackBar
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.messaging.FirebaseMessaging
 
 class LoginActivity : AppCompatActivity() {
 
@@ -102,6 +104,7 @@ class LoginActivity : AppCompatActivity() {
 
     fun userLoggedInSuccess(user: User){
         hideDialog()
+        FirestoreClass().saveNotificationToken(FirebaseService.token!!)
         when(user.accountType){
             "manager" -> {
                 startActivity(Intent(this@LoginActivity, ManagerMainActivity::class.java))

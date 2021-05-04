@@ -37,41 +37,56 @@ class HomeFragment : Fragment() {
         recyclerView = binding?.driverRecycleview!!
         FirestoreClass().getDriverPackages(this@HomeFragment)
         recyclerView.setHasFixedSize(true)
-        recyclerView.adapter = DriverPackageAdapter(requireContext(), packageItemsList){ id -> onClick(id)}
+        recyclerView.adapter =
+            DriverPackageAdapter(requireContext(), packageItemsList) { id -> onClick(id) }
 
     }
 
     private fun onClick(id: String) {
         val packageMap = HashMap<String, Any>()
-        packageMap["status"] = "delivered"
+        packageMap["status"] = "Delivered"
         FirestoreClass().markPackageAsDelivered(this@HomeFragment, id, packageMap)
     }
 
 
-    fun getDriverPackagesSuccess(arr: ArrayList<PackageListItem>){
-        packageItemsList.addAll(arr)
+    fun getDriverPackagesSuccess(arr: ArrayList<PackageListItem>) {
+        packageItemsList.addAll(arr.reversed())
         binding?.driverHomeTextview?.visibility = View.GONE
         Log.d("HomeFragment", arr.toString())
         recyclerView.adapter?.notifyDataSetChanged()
         hideDialog()
     }
 
-    fun getDriverPackagesError(msg: String? = null){
+    fun getDriverPackagesError(msg: String? = null) {
         hideDialog()
-        binding?.driverHomeTextview?.text= msg?:"No packages to deliver"
+        binding?.driverHomeTextview?.text = msg ?: "No packages to deliver"
 
     }
 
-    fun markPackageDeliveredSuccess(packageItem: PackageListItem){
+    fun markPackageDeliveredSuccess(packageItemId: String) {
         hideDialog()
-        packageItemsList.remove(packageItem)
+        val newList =
+            packageItemsList.filter { it.id !== packageItemId } as ArrayList<PackageListItem>
+
+        packageItemsList.clear()
+        packageItemsList.addAll(newList)
         recyclerView.adapter?.notifyDataSetChanged()
+        if(packageItemsList.isEmpty()) {
+            binding?.driverHomeTextview?.visibility = View.VISIBLE
+            binding?.driverHomeTextview?.text = "No packages to deliver"
+        }
         showErrorSnackBar(binding?.driverRecycleview!!, "Package Delivered!", false)
+
+
     }
 
-    fun markPackageDeliveredError(msg: String? = null){
+    fun markPackageDeliveredError(msg: String? = null) {
         hideDialog()
-        showErrorSnackBar(binding?.driverRecycleview!!, msg?:"Error when updating package status", true)
+        showErrorSnackBar(
+            binding?.driverRecycleview!!,
+            msg ?: "Error when updating package status",
+            true
+        )
     }
 
 }

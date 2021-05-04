@@ -30,7 +30,6 @@ class SplashActivity : AppCompatActivity() {
             if(it.isComplete){
                 val token = it.result.toString()
                 FirebaseService.token = token
-                // DO your thing with your firebase token
             }
         }
         FirebaseMessaging.getInstance().subscribeToTopic(Constants.TOPIC)

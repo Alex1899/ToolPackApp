@@ -162,20 +162,9 @@ class AddPackageFragment : Fragment() {
     fun addPackageSuccess() {
         hideDialog()
         showErrorSnackBar(binding?.packageDescriptionInput!!, "Package added successfully", false)
-        notifyDriver()
     }
 
-    private fun notifyDriver(){
-        val title = "New Package"
-        val message = "Hi! You have a new package to deliver"
-        PushNotification(
-            NotificationsData(title, message),
-            TOPIC
-        ).also {
-            sendNotification(it)
-        }
 
-    }
 
     fun addPackageError() {
         hideDialog()

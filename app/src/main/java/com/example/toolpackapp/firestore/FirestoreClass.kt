@@ -22,13 +22,13 @@ import com.example.toolpackapp.activities.manager.ui.addBuildingSite.AddBuilding
 import com.example.toolpackapp.activities.manager.ui.addPackage.AddPackageFragment
 import com.example.toolpackapp.activities.manager.ui.addVendor.AddVendorFragment
 import com.example.toolpackapp.activities.manager.ui.home.ManagerHomeFragment
+import com.example.toolpackapp.firebaseNotifications.Constants
+import com.example.toolpackapp.firebaseNotifications.NotificationsData
+import com.example.toolpackapp.firebaseNotifications.PushNotification
 
 import com.example.toolpackapp.models.PackageListItem
 import com.example.toolpackapp.models.User
-import com.example.toolpackapp.utils.getFileExtension
-import com.example.toolpackapp.utils.getFileExtensionFragment
-import com.example.toolpackapp.utils.hideDialog
-import com.example.toolpackapp.utils.showErrorSnackBar
+import com.example.toolpackapp.utils.*
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.gms.tasks.Task
 
@@ -156,9 +156,9 @@ class FirestoreClass {
 
                 when (fragment) {
                     is ManagerHomeFragment -> {
-                        if(resultList.isEmpty()){
+                        if (resultList.isEmpty()) {
                             fragment.getPackageItemsError()
-                        }else {
+                        } else {
                             fragment.setPackageItemsList(resultList)
                         }
                     }
@@ -171,6 +171,21 @@ class FirestoreClass {
                     }
                 }
             }
+    }
+
+    fun saveNotificationToken(token: String) {
+        val map = HashMap<String, String>()
+        map["token"] = token
+        mFireStore.collection("users")
+            .document(getCurrentUserID())
+            .set(map, SetOptions.merge())
+            .addOnSuccessListener {
+                Log.d(
+                    "Firestore",
+                    "New token doc created and saved"
+                )
+            }
+
     }
 
 
@@ -341,6 +356,7 @@ class FirestoreClass {
                 when (fragment) {
                     is AddPackageFragment -> {
                         fragment.addPackageSuccess()
+                        notifyDriver(packageMap["driver"] as String)
                         fragment.clearForm()
                     }
                 }
@@ -353,6 +369,29 @@ class FirestoreClass {
                     }
                 }
             }
+    }
+
+    private fun notifyDriver(driver: String) {
+        val title = "New Package"
+        val message = "Hi! You have a new package to deliver"
+
+        mFireStore.collection("users")
+            .whereEqualTo("accountType", "driver")
+            .whereEqualTo("fullname", driver)
+            .get()
+            .addOnSuccessListener { document ->
+                if (!document.isEmpty) {
+                    val user = document.documents[0]
+                    PushNotification(
+                        NotificationsData(title, message),
+                        user["token"] as String
+                    ).also {
+                        sendNotification(it)
+                    }
+                }
+            }
+
+
     }
 
     fun addNewVendor(fragment: Fragment, vendorMap: HashMap<String, Any>) {
@@ -554,11 +593,9 @@ class FirestoreClass {
                 // get the updated package
                 mFireStore.collection("packages").document(id).get()
                     .addOnSuccessListener { document ->
-                        val packageItem = document.toObject(PackageListItem::class.java)!!
-
                         when (fragment) {
                             is HomeFragment -> {
-                                fragment.markPackageDeliveredSuccess(packageItem)
+                                fragment.markPackageDeliveredSuccess(id)
                             }
                         }
                     }
