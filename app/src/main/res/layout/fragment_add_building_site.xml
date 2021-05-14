@@ -5,14 +5,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
     tools:context=".activities.manager.ui.addBuildingSite.AddBuildingSiteFragment">
 
     <ScrollView
         android:id="@+id/add_fragment_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="50dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -35,7 +33,7 @@
                     android:layout_height="match_parent"
                     android:contentDescription="@string/content_desc"
                     android:scaleType="fitXY"
-                    android:src="@drawable/auth_header_image" />
+                    android:src="@drawable/building_site_header" />
             </FrameLayout>
 
             <TextView
@@ -72,7 +70,7 @@
                     android:id="@+id/buildingSiteName_input_text"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:inputType="textPassword|textNoSuggestions"
+                    android:inputType="text|textNoSuggestions"
                     android:maxLines="1" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -95,7 +93,7 @@
                     android:id="@+id/buildingSiteAddress_input_text"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:inputType="textPassword|textNoSuggestions"
+                    android:inputType="text|textNoSuggestions"
                     android:maxLines="1" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -118,7 +116,7 @@
                     android:id="@+id/buildingSiteAdminEmail_input_text"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:inputType="textPassword|textNoSuggestions"
+                    android:inputType="textEmailAddress|textNoSuggestions"
                     android:maxLines="1" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -141,7 +139,7 @@
                     android:id="@+id/buildingSiteAdminFullName_input_text"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:inputType="textPassword|textNoSuggestions"
+                    android:inputType="textPersonName|textNoSuggestions"
                     android:maxLines="1" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -163,7 +161,7 @@
                     android:id="@+id/buildingSitePhone_input_text"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:inputType="textPassword|textNoSuggestions"
+                    android:inputType="number|textNoSuggestions"
                     android:maxLines="1" />
             </com.google.android.material.textfield.TextInputLayout>
 

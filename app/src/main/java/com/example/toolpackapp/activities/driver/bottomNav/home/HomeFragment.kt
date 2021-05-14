@@ -1,25 +1,37 @@
 package com.example.toolpackapp.activities.driver.bottomNav.home
 
+import android.Manifest
+import android.content.Intent
+import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Bundle
+import android.telephony.SmsManager
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.toolpackapp.activities.driver.DriverPackageAdapter
 import com.example.toolpackapp.databinding.FragmentHomeDriverBinding
 import com.example.toolpackapp.firestore.FirestoreClass
 import com.example.toolpackapp.models.PackageListItem
-import com.example.toolpackapp.utils.hideDialog
-import com.example.toolpackapp.utils.showDialog
-import com.example.toolpackapp.utils.showErrorSnackBar
-import java.util.ArrayList
+import com.example.toolpackapp.utils.*
+import java.util.*
+import kotlin.collections.HashMap
+import kotlin.collections.set
+
 
 class HomeFragment : Fragment() {
     private var binding: FragmentHomeDriverBinding? = null
     private var packageItemsList = ArrayList<PackageListItem>()
     private lateinit var recyclerView: RecyclerView
+    private lateinit var message: String
+    private lateinit var number: String
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -31,14 +43,23 @@ class HomeFragment : Fragment() {
         return fragmentBinding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun onResume(){
+        super.onResume()
+        if(packageItemsList.isNotEmpty()){
+            packageItemsList.clear()
+        }
+        startFetching()
+    }
+
+    private fun startFetching(){
         showDialog(requireContext())
         recyclerView = binding?.driverRecycleview!!
         FirestoreClass().getDriverPackages(this@HomeFragment)
         recyclerView.setHasFixedSize(true)
         recyclerView.adapter =
-            DriverPackageAdapter(requireContext(), packageItemsList) { id -> onClick(id) }
+            DriverPackageAdapter(requireContext(), packageItemsList, { id -> onClick(id) }) { item -> onLocationClick(
+                item
+            )}
 
     }
 
@@ -46,6 +67,19 @@ class HomeFragment : Fragment() {
         val packageMap = HashMap<String, Any>()
         packageMap["status"] = "Delivered"
         FirestoreClass().markPackageAsDelivered(this@HomeFragment, id, packageMap)
+    }
+
+    fun sendingSMS(number: String, message: String){
+        val uri = Uri.parse("smsto:$number")
+        val intent = Intent(Intent.ACTION_SENDTO, uri)
+        intent.putExtra("sms_body", message)
+        startActivity(intent)
+    }
+
+
+    private fun onLocationClick(item: PackageListItem){
+        showDialog(requireContext())
+        FirestoreClass().showPackageLocation(this@HomeFragment, item)
     }
 
 
@@ -59,7 +93,10 @@ class HomeFragment : Fragment() {
 
     fun getDriverPackagesError(msg: String? = null) {
         hideDialog()
-        binding?.driverHomeTextview?.text = msg ?: "No packages to deliver"
+        Log.d("Empty", msg!!)
+        binding?.driverHomeTextview?.text = msg?:"No packages to deliver"
+        binding?.driverHomeTextview?.visibility = View.VISIBLE
+
 
     }
 
@@ -78,7 +115,9 @@ class HomeFragment : Fragment() {
         showErrorSnackBar(binding?.driverRecycleview!!, "Package Delivered!", false)
 
 
+
     }
+
 
     fun markPackageDeliveredError(msg: String? = null) {
         hideDialog()
@@ -87,6 +126,24 @@ class HomeFragment : Fragment() {
             msg ?: "Error when updating package status",
             true
         )
+    }
+
+
+    fun showPackageLocationOnMap(pickupAddress: String, deliveryAddress: String){
+        hideDialog()
+        val bundle = Bundle()
+        bundle.putString("pickupAddress", pickupAddress)
+        bundle.putString("deliveryAddress", deliveryAddress)
+
+        findNavController().navigate(com.example.toolpackapp.R.id.mapsFragment, bundle)
+
+//        val mapFrag = MapsFragment()
+//        mapFrag.arguments = bundle
+//        val transaction = requireActivity().supportFragmentManager.beginTransaction()
+//
+//        transaction.replace(com.example.toolpackapp.R.id.container, MapsFragment())
+//        transaction.addToBackStack(null)
+//        transaction.commit()
     }
 
 }

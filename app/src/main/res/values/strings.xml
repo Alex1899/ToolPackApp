@@ -76,17 +76,36 @@
     <string name="spinner_selectPackageStatus">Select Package Status: </string>
     <string name="spinner_selectBuildingsite">Select Building Site: </string>
     <string name="packageDescripton">Package Description</string>
+
+    <!--    package item list-->
     <string name="packageName">Name: %s</string>
     <string name="packageDriver">Driver: %s</string>
     <string name="packageVendor">Vendor: %s</string>
     <string name="packageDescription">Description: %s</string>
-
-
     <string name="packageWeight">Weight: %s kg</string>
-    <string name="buildingSite">Building Site: %s</string>
+    <string name="buildingSite">Delivery Address: %s</string>
+    <string name="vendorAddress">Pickup Address: %s</string>
     <string name="deliveryDate">Delivery Date: %s</string>
     <string name="deliveryTime">Delivery Time: %s</string>
     <string name="status">Status: %s</string>
+
+    <!--    driver item list-->
+    <string name="driverName">Name: %s</string>
+    <string name="driverEmail">E-mail: %s</string>
+    <string name="driverMobile">Mobile: %s</string>
+    <string name="driverProfileCompleted">Profile Completed: %s</string>
+
+    <!--    vendor item list-->
+    <string name="vendorNamee">Name: %s</string>
+    <string name="vendorEmail">E-mail: %s</string>
+    <string name="vendorMobile">Mobile: %s</string>
+
+    <!--  building site item list  -->
+    <string name="buildingName">Name: %s </string>
+    <string name="buildingAddress">Address: %s </string>
+    <string name="buildingPhone">Mobile: %s </string>
+    <string name="siteAdminName">Site Admin Name: %s </string>
+    <string name="siteAdminEmail">Site Admin E-mail: %s </string>
 
 
 </resources>

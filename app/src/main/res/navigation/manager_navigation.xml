@@ -31,4 +31,19 @@
         android:name="com.example.toolpackapp.activities.manager.ui.addVendor.AddVendorFragment"
         android:label="Add Vendor"
         tools:layout="@layout/fragment_add_vendor" />
+    <fragment
+        android:id="@+id/viewDriversList"
+        android:name="com.example.toolpackapp.activities.manager.ui.driversList.ViewDriversList"
+        android:label="View All Drivers"
+        tools:layout="@layout/fragment_view_drivers_list" />
+    <fragment
+        android:id="@+id/viewVendorList"
+        android:name="com.example.toolpackapp.activities.manager.ui.vendorList.ViewVendorList"
+        android:label="View All Vendors"
+        tools:layout="@layout/fragment_view_vendor_list" />
+    <fragment
+        android:id="@+id/viewBuildingSiteList"
+        android:name="com.example.toolpackapp.activities.manager.ui.buildingSiteList.ViewBuildingSiteList"
+        android:label="View All Building Sites"
+        tools:layout="@layout/fragment_view_building_site_list" />
 </navigation>

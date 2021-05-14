@@ -14,7 +14,8 @@ import com.example.toolpackapp.models.PackageListItem
 class DriverPackageAdapter(
     private val context: Context,
     private val dataset: ArrayList<PackageListItem>,
-    val onClick: (String) -> Unit,
+    val onDeliverClick: (String) -> Unit,
+    val onLocationClick: (PackageListItem) -> Unit
 ) : RecyclerView.Adapter<DriverPackageAdapter.ViewHolder>() {
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -22,7 +23,9 @@ class DriverPackageAdapter(
         val deliveryDate: TextView = view.findViewById(R.id.package_delivery_date)
         val deliveryTime: TextView = view.findViewById(R.id.package_delivery_time)
         val buildingSite: TextView = view.findViewById(R.id.package_building_site)
+        val vendorAddress: TextView = view.findViewById(R.id.package_vendor_adress)
 
+        val showLocationBtn: Button = view.findViewById(R.id.show_location_btn)
         val markAsDeliveredBtn: Button = view.findViewById(R.id.mark_as_delivered)
     }
 
@@ -44,9 +47,16 @@ class DriverPackageAdapter(
         holder.buildingSite.text =
             context.resources.getString(R.string.buildingSite, item.buildingSite)
 
+        holder.vendorAddress.text = context.resources.getString(R.string.vendorAddress, item.vendor)
+
+
         holder.markAsDeliveredBtn.setOnClickListener {
-            onClick(item.id)
+            onDeliverClick(item.id)
         }
+
+        holder.showLocationBtn.setOnClickListener {
+            onLocationClick(item)
+            }
     }
 
     override fun getItemCount() = dataset.size

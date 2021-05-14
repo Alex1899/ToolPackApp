@@ -10,7 +10,7 @@ data class PackageListItem(
     val deliveryTime: String = "",
     val buildingSite: String = "",
     val driver: String = "",
-    val status: String = "pending",
+    val status: String = "Pending",
     val vendor: String = "",
     val id: String = "",
     val description: String = ""

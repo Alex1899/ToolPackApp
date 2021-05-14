@@ -41,11 +41,25 @@ class DriverMainViewActivity : AppCompatActivity() {
         val navView: BottomNavigationView = findViewById(R.id.nav_view_bottombar)
 
         val navController = findNavController(R.id.nav_host_fragment_bottombar)
+
+        if (intent.hasExtra("user_details")) {
+            val user = intent.getParcelableExtra<User>("user_details")!!
+            val userMap = Bundle()
+            userMap.putString("photo", user.photo)
+            userMap.putString("phone", user.mobile)
+            userMap.putString("fullname", user.fullname)
+            userMap.putString("email", user.email)
+            bundle.putBundle("user_details", userMap)
+
+            if(user.profileCompleted == 0){
+                navController.navigate(R.id.driverAccountFragment, bundle)
+            }
+        }
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.homeFragment, R.id.driverAccountFragment, R.id.navigation_notifications
+                R.id.homeFragment, R.id.driverAccountFragment, R.id.mapsFragment
             )
         )
         setupActionBarWithNavController(navController, appBarConfiguration)

@@ -1,4 +1,4 @@
-package com.example.toolpackapp.activities.driver.bottomNav.notifications
+package com.example.toolpackapp.activities.driver.bottomNav.maps
 
 import android.os.Bundle
 import android.view.LayoutInflater

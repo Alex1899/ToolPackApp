@@ -27,7 +27,7 @@ class SplashActivity : AppCompatActivity() {
         setContentView(R.layout.activity_splash)
         FirebaseService.sharedPref = getSharedPreferences("sharedPref", Context.MODE_PRIVATE)
         FirebaseMessaging.getInstance().token.addOnCompleteListener {
-            if(it.isComplete){
+            if (it.isComplete) {
                 val token = it.result.toString()
                 FirebaseService.token = token
             }
@@ -70,22 +70,12 @@ class SplashActivity : AppCompatActivity() {
                                 )
                             }
                             else -> {
-                                if (user.profileCompleted == 0) {
-                                    val intent = Intent(
-                                        this@SplashActivity,
-                                        DriverAccountFragment::class.java
-                                    )
-                                    intent.putExtra("user_details", user)
-                                    startActivity(intent)
-                                } else {
-                                    startActivity(
-                                        Intent(
-                                            this@SplashActivity,
-                                            DriverMainViewActivity::class.java
-                                        )
-                                    )
-
-                                }
+                                val intent = Intent(
+                                    this@SplashActivity,
+                                    DriverMainViewActivity::class.java
+                                )
+                                intent.putExtra("user_details", user)
+                                startActivity(intent)
                             }
                         }
                         finish()

@@ -48,10 +48,16 @@
                     />
 
                 <TextView
+                    android:id="@+id/package_vendor_adress"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    />
+                <TextView
                     android:id="@+id/package_building_site"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     />
+
 
                 <TextView
                     android:id="@+id/package_delivery_date"
@@ -69,10 +75,20 @@
 
             </LinearLayout>
         </LinearLayout>
+
+         <Button
+             android:id="@+id/show_location_btn"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:layout_marginLeft="16dp"
+             android:layout_marginRight="16dp"
+             android:text="Show Location On Map"
+
+             />
         <Button
             android:id="@+id/mark_as_delivered"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
             android:text="Mark as delivered" />

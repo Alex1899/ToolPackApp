@@ -6,7 +6,7 @@
 
     <dimen name="splash_title_text_size">35sp</dimen>
     <dimen name="splash_title_text2_size">20sp</dimen>
-    <dimen name="auth_header_image_height">250dp</dimen>
+    <dimen name="auth_header_image_height">220dp</dimen>
 
     <dimen name="progress_dialog_content_padding">10dp</dimen>
     <dimen name="progress_bar_size">50dp</dimen>
@@ -21,7 +21,7 @@
 
     <dimen name="profile_user_image_size">150dp</dimen>
     <dimen name="profile_user_image_marginTop">50dp</dimen>
-    <dimen name="user_image_background_stroke">4dp</dimen>
+    <dimen name="user_image_background_stroke">2dp</dimen>
     <dimen name="user_image_background_corner_radius">10dp</dimen>
 
 

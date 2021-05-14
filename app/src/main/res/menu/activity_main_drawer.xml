@@ -31,5 +31,20 @@
             android:title="Add Vendor"
             />
 
+        <item
+            android:id="@+id/viewDriversList"
+            android:icon="@drawable/ic_baseline_view_list_24"
+            android:title="View All Drivers" />
+
+        <item
+            android:id="@+id/viewVendorList"
+            android:icon="@drawable/ic_baseline_view_list_24"
+            android:title="View All Vendors" />
+
+        <item
+            android:id="@+id/viewBuildingSiteList"
+            android:icon="@drawable/ic_baseline_view_list_24"
+            android:title="View All Building Sites" />
+
     </group>
 </menu>

@@ -42,7 +42,10 @@ class ManagerMainActivity : AppCompatActivity() {
                 R.id.addBuildingSiteFragment,
                 R.id.addDriverFragment,
                 R.id.addVendorFragment,
-                R.id.addPackageFragment
+                R.id.addPackageFragment,
+                R.id.viewDriversList,
+                R.id.viewVendorList,
+                R.id.viewBuildingSiteList
             ), drawerLayout
         )
         setupActionBarWithNavController(navController, appBarConfiguration)

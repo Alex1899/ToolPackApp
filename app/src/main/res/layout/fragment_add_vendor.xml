@@ -34,7 +34,7 @@
                     android:layout_height="match_parent"
                     android:contentDescription="@string/content_desc"
                     android:scaleType="fitXY"
-                    android:src="@drawable/auth_header_image" />
+                    android:src="@drawable/vendor_header" />
             </FrameLayout>
 
             <TextView
@@ -69,7 +69,7 @@
                     android:id="@+id/vendorName_input_text"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:inputType="textPassword|textNoSuggestions"
+                    android:inputType="text|textNoSuggestions"
                     android:maxLines="1" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -92,7 +92,7 @@
                     android:id="@+id/vendorEmail_input_text"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:inputType="textPassword|textNoSuggestions"
+                    android:inputType="textEmailAddress|textNoSuggestions"
                     android:maxLines="1" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -114,7 +114,7 @@
                     android:id="@+id/vendorAddress_input_text"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:inputType="textPassword|textNoSuggestions"
+                    android:inputType="text|textNoSuggestions"
                     android:maxLines="1" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -137,7 +137,7 @@
                     android:id="@+id/vendorPhone_input_text"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:inputType="textPassword|textNoSuggestions"
+                    android:inputType="phone|textNoSuggestions"
                     android:maxLines="1" />
             </com.google.android.material.textfield.TextInputLayout>
 

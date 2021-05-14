@@ -25,6 +25,7 @@ class ManagerEditPackageDetailsActivity : AppCompatActivity(), View.OnClickListe
     private lateinit var packageListItem: PackageListItem
     private var selectedImage: Uri? = null
     private var packageImageUrl: String = ""
+    private lateinit var oldDriver: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,6 +42,7 @@ class ManagerEditPackageDetailsActivity : AppCompatActivity(), View.OnClickListe
             packageListItem = intent.getParcelableExtra("packageListItem")!!
         }
 
+        oldDriver = packageListItem.driver
         binding?.packageNameInputText?.setText(packageListItem.name)
         loadPackageStatus(packageListItem.status)
         binding?.deliveryDateInputText?.setText(packageListItem.deliveryDate)
@@ -190,8 +192,9 @@ class ManagerEditPackageDetailsActivity : AppCompatActivity(), View.OnClickListe
     fun updatePackageSuccess(){
         hideDialog()
         showErrorSnackBar(binding?.packageNameInput!!, "Package updated successfully", false)
-        //startActivity(Intent(this@ManagerEditPackageDetailsActivity, ManagerMainActivity::class.java))
-        //finish()
+        if(oldDriver !== binding?.selectPackageDriverSpinner?.text.toString()){
+            FirestoreClass().notifyDriver(binding?.selectPackageDriverSpinner?.text.toString())
+        }
     }
 
     fun updatePackageError(){

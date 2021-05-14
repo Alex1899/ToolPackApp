@@ -4,7 +4,13 @@ import android.app.Activity
 import android.app.Dialog
 import android.content.Context
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.Canvas
 import android.graphics.Color
+import android.graphics.drawable.BitmapDrawable
+import android.graphics.drawable.Drawable
+import android.location.Address
+import android.location.Geocoder
 import android.net.Uri
 import android.provider.MediaStore
 import android.util.Log
@@ -14,12 +20,15 @@ import androidx.fragment.app.Fragment
 import com.example.toolpackapp.R
 import com.example.toolpackapp.firebaseNotifications.PushNotification
 import com.example.toolpackapp.firebaseNotifications.RetrofitInstance
+import com.google.android.gms.maps.model.LatLng
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputLayout
 import com.google.gson.Gson
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import java.io.IOException
+import java.util.*
 
 
 var dialog: Dialog? = null
@@ -101,9 +110,74 @@ fun sendNotification(notification: PushNotification) = CoroutineScope(Dispatcher
         }else{
             Log.e(TAG, response.errorBody().toString())
         }
-    } catch(e: Exception){
+    } catch (e: Exception){
         Log.e(TAG, e.toString())
     }
+}
+
+fun drawableToBitmap(drawable: Drawable): Bitmap? {
+    if (drawable is BitmapDrawable) {
+        return drawable.bitmap
+    }
+    val bitmap =
+        Bitmap.createBitmap(
+            drawable.intrinsicWidth,
+            drawable.intrinsicHeight,
+            Bitmap.Config.ARGB_8888
+        )
+    val canvas = Canvas(bitmap)
+    drawable.setBounds(0, 0, canvas.width, canvas.height)
+    drawable.draw(canvas)
+    return bitmap
+}
+
+fun getAddress(latLng: LatLng, context: Context): String {
+    // 1
+    val geocoder = Geocoder(context)
+    val addresses: List<Address>?
+    val address: Address?
+    var addressText = ""
+
+    try {
+        // 2
+        addresses = geocoder.getFromLocation(latLng.latitude, latLng.longitude, 1)
+        // 3
+        if (null != addresses && addresses.isNotEmpty()) {
+            address = addresses[0]
+            if(addresses.size == 1){
+                addressText = address.getAddressLine(0)
+                Log.d("Maps", "Address text => $addressText")
+
+            }else{
+                for (i in 0 until address.maxAddressLineIndex) {
+                    addressText += if (i == 0) address.getAddressLine(i) else "\n" + address.getAddressLine(
+                        i
+                    )
+                }
+            }
+        }
+    } catch (e: IOException) {
+        Log.e("MapsActivity", e.localizedMessage)
+    }
+
+    Log.d("Maps", addressText)
+    return addressText
+}
+
+fun getLocationFromPostcode(postcode: String, activity: Activity): LatLng? {
+    val mGeocoder = Geocoder(activity, Locale.getDefault())
+    val addresses: List<Address>? = mGeocoder.getFromLocationName(postcode, 1)
+    Log.d("Maps", "address from postcode: $postcode => $addresses")
+    var p: LatLng? = null
+
+    if (addresses != null && addresses.isNotEmpty()) {
+        val location: Address = addresses[0]
+        p = LatLng(
+            location.latitude,
+            location.longitude
+        )
+    }
+    return p
 }
 
 

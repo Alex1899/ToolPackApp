@@ -6,13 +6,14 @@
     android:layout_margin="8dp"
     android:layout_marginLeft="16dp"
     android:layout_marginRight="16dp"
-    android:layout_marginBottom="16dp"
     app:cardCornerRadius="8dp"
     app:cardElevation="16dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:gravity="center"
         android:orientation="vertical">
 
@@ -20,7 +21,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="start"
-            android:layout_marginLeft="16dp"
             android:orientation="horizontal"
             android:paddingTop="10dp"
             android:paddingBottom="10dp">
@@ -74,7 +74,6 @@
                         android:layout_height="wrap_content"
                         android:text="Status: "
                         android:textSize="15sp"
-
                         android:textColor="@color/black" />
 
                     <TextView
@@ -82,7 +81,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="15sp"
-
                         android:textColor="@color/black"
                         android:textStyle="bold" />
                 </LinearLayout>
@@ -102,9 +100,8 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
                 android:layout_marginTop="15dp"
-                android:layout_marginRight="15dp"
+                android:layout_marginRight="10dp"
                 android:gravity="center"
                 android:orientation="vertical">
 
@@ -114,7 +111,7 @@
                     android:layout_marginBottom="5dp"
                     android:textSize="15sp"
 
-                    android:text="Delivery Date"
+                    android:text="Date"
                     android:textAllCaps="true"
                     android:textColor="@color/black" />
 
@@ -130,7 +127,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
-                android:layout_marginRight="15dp"
+                android:layout_marginRight="10dp"
                 android:gravity="center"
                 android:orientation="vertical">
 
@@ -157,7 +154,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:layout_marginTop="15dp"
-                android:layout_marginRight="15dp"
+                android:layout_marginRight="10dp"
                 android:orientation="vertical">
 
                 <TextView
@@ -180,9 +177,9 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center|center_vertical"
+                android:gravity="center"
                 android:layout_marginTop="15dp"
-                android:layout_marginRight="15dp"
+                android:layout_marginRight="10dp"
                 android:orientation="vertical">
 
                 <TextView
@@ -208,8 +205,6 @@
             android:id="@+id/edit_btn"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
             android:layout_marginTop="20dp"
             android:text="Edit Details" />
     </LinearLayout>
