@@ -9,9 +9,13 @@
     <string name="content_desc">Image</string>
 
     <string name="err_msg_enter_full_name">Please enter the fullname</string>
+    <string name="err_msg_wrong_full_name">Please only use letters</string>
+
     <string name="err_msg_enter_username">Please enter email</string>
     <string name="err_msg_enter_email">Please enter email</string>
     <string name="err_msg_enter_password">Please enter password</string>
+    <string name="err_msg_short_password">Password has to be more than 6 characters</string>
+
 
     <string name="please_wait">Please Wait&#8230;</string>
     <!-- TODO: Remove or change this placeholder text -->

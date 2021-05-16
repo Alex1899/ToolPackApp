@@ -9,10 +9,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.toolpackapp.databinding.FragmentAddBuildingSiteBinding
 import com.example.toolpackapp.firestore.FirestoreClass
-import com.example.toolpackapp.utils.hideDialog
-import com.example.toolpackapp.utils.setErrorTextField
-import com.example.toolpackapp.utils.showDialog
-import com.example.toolpackapp.utils.showErrorSnackBar
+import com.example.toolpackapp.utils.*
 
 
 /**
@@ -65,28 +62,53 @@ class AddBuildingSiteFragment : Fragment() {
             TextUtils.isEmpty(
                 binding?.buildingSiteAddressInputText?.text.toString()
             ) -> {
-                setErrorTextField(binding?.buildingSiteAddressInput!!, true,"Please add site address" )
+                setErrorTextField(
+                    binding?.buildingSiteAddressInput!!,
+                    true,
+                    "Please add site address"
+                )
                 //showErrorSnackBar(binding?.buildingSiteName!!, "Please add site address", true)
                 false
             }
             TextUtils.isEmpty(
                 binding?.buildingSiteAdminEmailInputText?.text.toString()
             ) -> {
-                setErrorTextField(binding?.buildingSiteAdminEmailInput!!, true,  "Please add site admin email")
+                setErrorTextField(
+                    binding?.buildingSiteAdminEmailInput!!,
+                    true,
+                    "Please add site admin email"
+                )
                 //showErrorSnackBar(binding?.buildingSiteAdminEmail!!, "Please add site admin email",true)
                 false
             }
             TextUtils.isEmpty(
                 binding?.buildingSiteAdminFullNameInputText?.text.toString()
             ) -> {
-                setErrorTextField(binding?.buildingSiteAdminFullNameInput!!, true,"Please add site admin fullname")
+                setErrorTextField(
+                    binding?.buildingSiteAdminFullNameInput!!,
+                    true,
+                    "Please add site admin fullname"
+                )
+                //showErrorSnackBar(binding?.buildingSiteName!!,"Please add site admin fullname",true)
+                false
+            }
+            !hasOnlyLetters(binding?.buildingSiteAdminFullNameInputText!!) -> {
+                setErrorTextField(
+                    binding?.buildingSiteAdminFullNameInput!!,
+                    true,
+                    "Fullname can only contain letters"
+                )
                 //showErrorSnackBar(binding?.buildingSiteName!!,"Please add site admin fullname",true)
                 false
             }
             TextUtils.isEmpty(
                 binding?.buildingSitePhoneInputText?.text.toString()
             ) -> {
-                setErrorTextField(binding?.buildingSitePhoneInput!!, true, "Please add site contact number")
+                setErrorTextField(
+                    binding?.buildingSitePhoneInput!!,
+                    true,
+                    "Please add site contact number"
+                )
                 //showErrorSnackBar(binding?.buildingSiteName!!,"Please add site contact number",true)
                 false
             }
@@ -119,19 +141,28 @@ class AddBuildingSiteFragment : Fragment() {
         buildingSites["siteName"] = binding?.buildingSiteNameInputText?.text.toString()
         buildingSites["siteAddress"] = binding?.buildingSiteAddressInputText?.text.toString()
         buildingSites["siteAdminEmail"] = binding?.buildingSiteAdminEmailInputText?.text.toString()
-        buildingSites["siteAdminFullName"] = binding?.buildingSiteAdminFullNameInputText?.text.toString()
+        buildingSites["siteAdminFullName"] =
+            binding?.buildingSiteAdminFullNameInputText?.text.toString()
         buildingSites["sitePhone"] = binding?.buildingSitePhoneInputText?.text.toString()
         return buildingSites
     }
 
     fun addBuildingSuccess() {
         hideDialog()
-        showErrorSnackBar(binding?.buildingSiteNameInputText!!, "Building Site Added Successfully!", false)
+        showErrorSnackBar(
+            binding?.buildingSiteNameInputText!!,
+            "Building Site Added Successfully!",
+            false
+        )
     }
 
     fun addBuildingFailure(msg: String? = null) {
         hideDialog()
-        showErrorSnackBar(binding?.buildingSiteNameInput!!, msg?:"Error while adding the building site", true)
+        showErrorSnackBar(
+            binding?.buildingSiteNameInput!!,
+            msg ?: "Error while adding the building site",
+            true
+        )
     }
 
 

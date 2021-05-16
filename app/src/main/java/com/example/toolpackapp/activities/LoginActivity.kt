@@ -46,26 +46,35 @@ class LoginActivity : AppCompatActivity() {
         }
 
         val forgotPwd = findViewById<TextView>(R.id.forgot_pwd)
-        forgotPwd.setOnClickListener{
+        forgotPwd.setOnClickListener {
             val intent = Intent(this@LoginActivity, ForgotPasswordActivity::class.java)
             startActivity(intent)
         }
 
         val loginBtn = findViewById<Button>(R.id.button_login)
-        loginBtn.setOnClickListener{
+        loginBtn.setOnClickListener {
             logInRegisteredUser(it)
         }
     }
 
-    private fun validateLogInDetails(view: View): Boolean{
+    private fun validateLogInDetails(view: View): Boolean {
         return when {
-            TextUtils.isEmpty(binding?.loginEmailInputText?.text.toString().trim{ it <= ' '}) -> {
-                setErrorTextField(binding?.loginEmailInput!!, true, resources.getString(R.string.err_msg_enter_email))
+            TextUtils.isEmpty(binding?.loginEmailInputText?.text.toString().trim { it <= ' ' }) -> {
+                setErrorTextField(
+                    binding?.loginEmailInput!!,
+                    true,
+                    resources.getString(R.string.err_msg_enter_email)
+                )
                 //showErrorSnackBar(view, resources.getString(R.string.err_msg_enter_email), true)
                 false
             }
-            TextUtils.isEmpty(binding?.loginPasswordInputText?.text.toString().trim{ it <= ' '}) -> {
-                setErrorTextField(binding?.loginPasswordInput!!, true, resources.getString(R.string.err_msg_enter_password))
+            TextUtils.isEmpty(
+                binding?.loginPasswordInputText?.text.toString())-> {
+                setErrorTextField(
+                    binding?.loginPasswordInput!!,
+                    true,
+                    resources.getString(R.string.err_msg_enter_password)
+                )
                 //showErrorSnackBar(view, resources.getString(R.string.err_msg_enter_password), true)
                 false
             }
@@ -74,7 +83,8 @@ class LoginActivity : AppCompatActivity() {
             }
         }
     }
-    private fun clearLogInForm(){
+
+    private fun clearLogInForm() {
         binding?.loginEmailInputText?.setText("")
         binding?.loginEmailInput?.isErrorEnabled = false
 
@@ -82,19 +92,19 @@ class LoginActivity : AppCompatActivity() {
         binding?.loginPasswordInput?.isErrorEnabled = false
     }
 
-    private fun logInRegisteredUser(view: View){
-        if(validateLogInDetails(view)){
+    private fun logInRegisteredUser(view: View) {
+        if (validateLogInDetails(view)) {
             com.example.toolpackapp.utils.showDialog(this@LoginActivity)
-            val email = binding?.loginEmailInputText?.text.toString().trim{it <= ' '}
-            val password = binding?.loginPasswordInputText?.text.toString().trim{it <= ' '}
+            val email = binding?.loginEmailInputText?.text.toString().trim { it <= ' ' }
+            val password = binding?.loginPasswordInputText?.text.toString().trim { it <= ' ' }
 
             FirebaseAuth.getInstance().signInWithEmailAndPassword(email, password)
-                .addOnCompleteListener{ task ->
-                    if(task.isSuccessful){
+                .addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
                         FirestoreClass().getUserDetails(this@LoginActivity)
                         clearLogInForm()
 
-                    }else{
+                    } else {
                         hideDialog()
                         showErrorSnackBar(view, task.exception!!.message.toString(), true)
                     }
@@ -102,28 +112,22 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-    fun userLoggedInSuccess(user: User){
+    fun userLoggedInSuccess(user: User) {
         hideDialog()
         FirestoreClass().saveNotificationToken(FirebaseService.token!!)
-        when(user.accountType){
+        when (user.accountType) {
             "manager" -> {
                 startActivity(Intent(this@LoginActivity, ManagerMainActivity::class.java))
             }
             else -> {
-                if(user.profileCompleted == 0){
-                    val intent = Intent(this@LoginActivity, DriverAccountFragment::class.java)
-                    intent.putExtra("user_details", user)
-                    startActivity(intent)
-                }else{
-                    startActivity(Intent(this@LoginActivity, DriverMainViewActivity::class.java))
+                val intent = Intent(this@LoginActivity, DriverMainViewActivity::class.java)
+                intent.putExtra("user_details", user)
+                startActivity(intent)
 
-                }
             }
         }
         finish()
     }
-
-
 
 
 }

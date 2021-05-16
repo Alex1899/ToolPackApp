@@ -1,41 +1,34 @@
 package com.example.toolpackapp.activities.driver.bottomNav.maps
 
-import android.app.Activity.RESULT_OK
-import android.content.Intent
 import android.content.pm.PackageManager
-import android.graphics.BitmapFactory
-import android.location.Address
-import android.location.Geocoder
 import android.location.Location
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
+import com.directions.route.*
 import com.example.toolpackapp.R
 import com.example.toolpackapp.databinding.FragmentMapsBinding
 import com.example.toolpackapp.utils.drawableToBitmap
 import com.example.toolpackapp.utils.getAddress
 import com.example.toolpackapp.utils.getLocationFromPostcode
-import com.google.android.gms.common.GooglePlayServicesNotAvailableException
-import com.google.android.gms.common.GooglePlayServicesRepairableException
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
-import com.google.android.gms.location.places.ui.PlacePicker
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.*
-import com.google.android.material.floatingactionbutton.FloatingActionButton
-import java.io.IOException
+import com.google.android.material.snackbar.Snackbar
 import java.util.*
 
 
-class MapsFragment : Fragment(), GoogleMap.OnMarkerClickListener {
+class MapsFragment : Fragment(), RoutingListener, GoogleMap.OnMarkerClickListener {
     companion object {
         private const val LOCATION_PERMISSION_REQUEST_CODE = 23
         private const val PLACE_PICKER_REQUEST = 24
@@ -133,16 +126,25 @@ class MapsFragment : Fragment(), GoogleMap.OnMarkerClickListener {
 
         if(pickupAddress !== null && deliveryAddress !== null){
             val pickupLocation = getLocationFromPostcode(pickupAddress!!, requireActivity())!!
-            val addressText = getAddress(pickupLocation, requireContext())
+            val pickupAddressText = getAddress(pickupLocation, requireContext())
+
             Log.d("Maps", "pickupLocation geocord -> $pickupLocation")
-            val deliveryLocation = getLocationFromPostcode(deliveryAddress!!, requireActivity())
+            val deliveryLocation = getLocationFromPostcode(deliveryAddress!!, requireActivity())!!
+            val deliveryAddressText = getAddress(deliveryLocation, requireContext())
 
-            val options = MarkerOptions().position(pickupLocation!!).title(addressText)
-            val drawable = ResourcesCompat.getDrawable(resources, R.drawable.ic_box_map, null)!!
-            options.icon(BitmapDescriptorFactory.fromBitmap(drawableToBitmap(drawable)!!))
+            val pickupOptions = MarkerOptions().position(pickupLocation).title(pickupAddressText)
+            val pickupDrawable = ResourcesCompat.getDrawable(resources, R.drawable.ic_box_map, null)!!
+            pickupOptions.icon(BitmapDescriptorFactory.fromBitmap(drawableToBitmap(pickupDrawable)!!))
 
-            mGoogleMap?.addMarker(options)
-            mGoogleMap?.animateCamera(CameraUpdateFactory.newLatLngZoom(pickupLocation!!, 12f))
+            val deliveryOptions = MarkerOptions().position(deliveryLocation).title(deliveryAddressText)
+            val deliveryDrawable = ResourcesCompat.getDrawable(resources, R.drawable.ic_maps_building_site, null)!!
+
+            pickupOptions.icon(BitmapDescriptorFactory.fromBitmap(drawableToBitmap(pickupDrawable)!!))
+            mGoogleMap?.addMarker(pickupOptions)
+            deliveryOptions.icon(BitmapDescriptorFactory.fromBitmap(drawableToBitmap(deliveryDrawable)!!))
+
+            mGoogleMap?.addMarker(deliveryOptions)
+            mGoogleMap?.animateCamera(CameraUpdateFactory.newLatLngZoom(pickupLocation, 12f))
         }
     }
 
@@ -151,12 +153,35 @@ class MapsFragment : Fragment(), GoogleMap.OnMarkerClickListener {
         val markerOptions = MarkerOptions().position(location)
         val title = getAddress(location, requireContext())
         markerOptions.title(title)
-//        val bitmap = BitmapFactory.decodeResource(context?.resources, R.drawable.ic_baseline_person_24)
-        val drawable = ResourcesCompat.getDrawable(resources, R.drawable.ic_baseline_person_24, null)!!
+//      val bitmap = BitmapFactory.decodeResource(context?.resources, R.drawable.ic_baseline_person_24)
+        val drawable = ResourcesCompat.getDrawable(
+            resources,
+            R.drawable.ic_baseline_person_24,
+            null
+        )!!
         markerOptions.icon(BitmapDescriptorFactory.fromBitmap(drawableToBitmap(drawable)!!))
         mGoogleMap?.addMarker(markerOptions)
     }
 
+    //Routing call back functions.
+    override fun onRoutingFailure(e: RouteException) {
+        val parentLayout: View = view?.findViewById(android.R.id.content)!!
+        val snackbar = Snackbar.make(parentLayout, e.toString(), Snackbar.LENGTH_LONG)
+        snackbar.show()
+//    Findroutes(start,end);
+    }
+
+    override fun onRoutingStart() {
+        Toast.makeText(requireContext(), "Finding Route...", Toast.LENGTH_LONG).show()
+    }
+
+    override fun onRoutingSuccess(p0: ArrayList<Route>?, p1: Int) {
+        TODO("Not yet implemented")
+    }
+
+    override fun onRoutingCancelled() {
+        TODO("Not yet implemented")
+    }
 
 
 }

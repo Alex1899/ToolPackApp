@@ -22,6 +22,7 @@ import com.example.toolpackapp.firebaseNotifications.PushNotification
 import com.example.toolpackapp.firebaseNotifications.RetrofitInstance
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.material.snackbar.Snackbar
+import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import com.google.gson.Gson
 import kotlinx.coroutines.CoroutineScope
@@ -29,6 +30,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.io.IOException
 import java.util.*
+import java.util.regex.Matcher
+import java.util.regex.Pattern
 
 
 var dialog: Dialog? = null
@@ -178,6 +181,13 @@ fun getLocationFromPostcode(postcode: String, activity: Activity): LatLng? {
         )
     }
     return p
+}
+
+
+fun hasOnlyLetters(et: TextInputEditText): Boolean {
+    val ps: Pattern = Pattern.compile("^[a-zA-Z ]+$")
+    val ms: Matcher = ps.matcher(et.text.toString())
+    return ms.matches()
 }
 
 

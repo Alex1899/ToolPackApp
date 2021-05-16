@@ -44,14 +44,13 @@ class DriverMainViewActivity : AppCompatActivity() {
 
         if (intent.hasExtra("user_details")) {
             val user = intent.getParcelableExtra<User>("user_details")!!
-            val userMap = Bundle()
-            userMap.putString("photo", user.photo)
-            userMap.putString("phone", user.mobile)
-            userMap.putString("fullname", user.fullname)
-            userMap.putString("email", user.email)
-            bundle.putBundle("user_details", userMap)
-
-            if(user.profileCompleted == 0){
+            if (user.profileCompleted == 0) {
+                val userMap = Bundle()
+                userMap.putString("photo", user.photo)
+                userMap.putString("phone", user.mobile)
+                userMap.putString("fullname", user.fullname)
+                userMap.putString("email", user.email)
+                bundle.putBundle("user_details", userMap)
                 navController.navigate(R.id.driverAccountFragment, bundle)
             }
         }
@@ -123,7 +122,7 @@ class DriverMainViewActivity : AppCompatActivity() {
         bundle.putBundle("user_details", userMap)
     }
 
-    fun userProfileCompleteError(){
+    fun userProfileCompleteError() {
         hideDialog()
         Toast.makeText(this, "Error while completing profile", Toast.LENGTH_SHORT).show()
     }

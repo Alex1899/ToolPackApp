@@ -5,21 +5,18 @@ import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.toolpackapp.R
-
 import com.example.toolpackapp.databinding.AddDriverFragmentBinding
 import com.example.toolpackapp.firestore.FirestoreClass
 import com.example.toolpackapp.models.User
-
-import com.example.toolpackapp.utils.hideDialog
-import com.example.toolpackapp.utils.setErrorTextField
-import com.example.toolpackapp.utils.showDialog
-import com.example.toolpackapp.utils.showErrorSnackBar
+import com.example.toolpackapp.utils.*
 import com.google.android.gms.tasks.OnCompleteListener
+import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import java.util.regex.Matcher
+import java.util.regex.Pattern
 
 class AddDriverFragment : Fragment() {
 
@@ -46,24 +43,55 @@ class AddDriverFragment : Fragment() {
     }
 
 
-    private fun validateRegisterDetails(view: View): Boolean {
+    private fun validateRegisterDetails(): Boolean {
         return when {
             TextUtils.isEmpty(
                 binding?.driverfullnameInputText?.text.toString().trim { it <= ' ' }) -> {
-                setErrorTextField(binding?.driverfullnameInput!!, true,resources.getString(R.string.err_msg_enter_full_name))
+                setErrorTextField(
+                    binding?.driverfullnameInput!!,
+                    true,
+                    resources.getString(R.string.err_msg_enter_full_name)
+                )
+                //showErrorSnackBar(view, resources.getString(R.string.err_msg_enter_full_name), true)
+                false
+            }
+            !hasOnlyLetters(binding?.driverfullnameInputText!!) -> {
+                setErrorTextField(
+                    binding?.driverfullnameInput!!,
+                    true,
+                    resources.getString(R.string.err_msg_wrong_full_name)
+                )
                 //showErrorSnackBar(view, resources.getString(R.string.err_msg_enter_full_name), true)
                 false
             }
             TextUtils.isEmpty(
                 binding?.driverEmailInputText?.text.toString().trim { it <= ' ' }) -> {
-                setErrorTextField(binding?.driverEmailInput!!, true,resources.getString(R.string.err_msg_enter_username))
+                setErrorTextField(
+                    binding?.driverEmailInput!!,
+                    true,
+                    resources.getString(R.string.err_msg_enter_username)
+                )
                 //showErrorSnackBar(view, resources.getString(R.string.err_msg_enter_username), true)
                 false
             }
 
             TextUtils.isEmpty(
-                binding?.driverPasswordInputText?.text.toString().trim { it <= ' ' }) -> {
-                setErrorTextField(binding?.driverPasswordInput!!, true,resources.getString(R.string.err_msg_enter_password))
+                binding?.driverPasswordInputText?.text.toString()
+            ) -> {
+                setErrorTextField(
+                    binding?.driverPasswordInput!!,
+                    true,
+                    resources.getString(R.string.err_msg_enter_password)
+                )
+                //showErrorSnackBar(view, resources.getString(R.string.err_msg_enter_password), true)
+                false
+            }
+            binding?.driverPasswordInputText?.text.toString().length < 6 -> {
+                setErrorTextField(
+                    binding?.driverPasswordInput!!,
+                    true,
+                    resources.getString(R.string.err_msg_short_password)
+                )
                 //showErrorSnackBar(view, resources.getString(R.string.err_msg_enter_password), true)
                 false
             }
@@ -74,16 +102,19 @@ class AddDriverFragment : Fragment() {
         }
     }
 
+
+
     private fun registerUser(view: View) {
         // Check if the entries are valid
-        if (validateRegisterDetails(view)) {
+        if (validateRegisterDetails()) {
             showDialog(requireContext())
 
             val email: String =
                 binding?.driverEmailInputText?.text.toString().trim { it <= ' ' }
             val password: String =
                 binding?.driverPasswordInputText?.text.toString().trim { it <= ' ' }
-            val fullname: String = binding?.driverfullnameInputText?.text.toString().trim { it <= ' ' }
+            val fullname: String =
+                binding?.driverfullnameInputText?.text.toString().trim { it <= ' ' }
 
             //Log.d("AddDriver", "email: ${email}, fullname: $fullname")
 

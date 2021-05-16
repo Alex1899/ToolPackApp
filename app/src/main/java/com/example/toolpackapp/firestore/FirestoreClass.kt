@@ -341,9 +341,9 @@ class FirestoreClass {
                         val buildingSite = BuildingSite(
                             id,
                             siteName,
-                            siteAddress,
                             siteAdminFullname,
                             siteAdminEmail,
+                            siteAddress,
                             sitePhone
                         )
                         list.add(buildingSite)
@@ -542,6 +542,7 @@ class FirestoreClass {
         val buildingSiteRef = mFireStore.collection("buildingSites")
         buildingSiteRef.whereEqualTo("siteName", buildingSites["siteName"]).get()
             .addOnCompleteListener { task ->
+                Log.d("AddSite", "${task.result.documents}")
                 if (task.isSuccessful && task.result!!.documents.isNotEmpty()) {
                     when (fragment) {
                         is AddBuildingSiteFragment -> {
@@ -581,7 +582,7 @@ class FirestoreClass {
                     is AddPackageFragment -> {
                         fragment.addPackageSuccess()
                         notifyDriver(packageMap["driver"] as String)
-                        fragment.clearForm()
+                        //fragment.clearForm()
                     }
                 }
             }
@@ -622,8 +623,9 @@ class FirestoreClass {
 
     fun addNewVendor(fragment: Fragment, vendorMap: HashMap<String, Any>) {
         val vendorRef = mFireStore.collection("vendors")
-        vendorRef.whereEqualTo("vendor", vendorMap["vendorName"]).get()
+        vendorRef.whereEqualTo("vendorName", vendorMap["vendorName"]).get()
             .addOnCompleteListener { task ->
+                Log.d("Vendor", "${task.result.documents}")
                 if (task.isSuccessful && task.result!!.documents.isNotEmpty()) {
                     when (fragment) {
                         is AddVendorFragment -> {
@@ -873,6 +875,8 @@ class FirestoreClass {
                     .whereEqualTo("siteName", packageItem.buildingSite).get()
                     .addOnCompleteListener { task2 ->
                         val d = task2.result!!.documents
+                        Log.d("siteAddress", packageItem.buildingSite)
+                        Log.d("siteAddress", "$d")
                         val buildingSiteAddress = d[0].getString("siteAddress")!!
 
                         when (fragment) {
