@@ -836,7 +836,7 @@ class FirestoreClass {
                                 val number = d.getString("sitePhone")!!
                                 val adminName = d.getString("siteAdminFullName")!!
                                 val message =
-                                    "Hi, $adminName!\n\nThe package '$packageName' has been delivered to $siteName by $driver."
+                                    "Hi, $adminName!\nThe package '$packageName' has been delivered to $siteName by $driver."
 
                                 when (fragment) {
                                     is HomeFragment -> {

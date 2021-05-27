@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.toolpackapp.R
 import com.example.toolpackapp.firestore.FirestoreClass
 import com.example.toolpackapp.models.PackageListItem
+import org.w3c.dom.Text
 
 class DriverPackageAdapter(
     private val context: Context,
@@ -24,7 +25,8 @@ class DriverPackageAdapter(
         val deliveryTime: TextView = view.findViewById(R.id.package_delivery_time)
         val buildingSite: TextView = view.findViewById(R.id.package_building_site)
         val vendorAddress: TextView = view.findViewById(R.id.package_vendor_adress)
-
+        val description: TextView = view.findViewById(R.id.package_description)
+        
         val showLocationBtn: Button = view.findViewById(R.id.show_location_btn)
         val markAsDeliveredBtn: Button = view.findViewById(R.id.mark_as_delivered)
     }
@@ -48,7 +50,12 @@ class DriverPackageAdapter(
             context.resources.getString(R.string.buildingSite, item.buildingSite)
 
         holder.vendorAddress.text = context.resources.getString(R.string.vendorAddress, item.vendor)
-
+       
+        if(item.description === ""){
+            holder.description.visibility = View.GONE
+        }else{
+            holder.description.text = context.resources.getString(R.string.packageDescription, item.description)
+        }
 
         holder.markAsDeliveredBtn.setOnClickListener {
             onDeliverClick(item.id)
