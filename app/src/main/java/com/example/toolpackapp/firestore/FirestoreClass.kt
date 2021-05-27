@@ -520,7 +520,7 @@ class FirestoreClass {
 
     fun updatePackageDetails(activity: Activity, id: String, packageMap: HashMap<String, Any>) {
         mFireStore.collection("packages").document(id)
-            .update(packageMap)
+            .update(packageMap as Map<String, Any>)
             .addOnSuccessListener {
                 when (activity) {
                     is ManagerEditPackageDetailsActivity -> {

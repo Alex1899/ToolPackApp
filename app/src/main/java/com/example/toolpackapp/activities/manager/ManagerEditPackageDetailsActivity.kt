@@ -174,14 +174,13 @@ class ManagerEditPackageDetailsActivity : AppCompatActivity(), View.OnClickListe
 
     private fun getPackageDetailsMap(): HashMap<String, Any>{
         val packageMap = HashMap<String,Any>()
-        packageMap["packageName"] = binding?.packageNameInputText?.text.toString()
+        packageMap["name"] = binding?.packageNameInputText?.text.toString()
         packageMap["status"] = binding?.selectPackageStatusSpinner?.text.toString()
         packageMap["driver"] = binding?.selectPackageDriverSpinner?.text.toString()
         packageMap["vendor"] = binding?.selectPackageVendorSpinner?.text.toString()
         packageMap["deliveryDate"] = binding?.deliveryDateInputText?.text.toString()
         packageMap["deliveryTime"] = binding?.deliveryTimeInputText?.text.toString()
         packageMap["buildingSite"] = binding?.selectBuildingSiteSpinner?.text.toString()
-
         return packageMap
     }
 

@@ -37,29 +37,34 @@
 
                 <TextView
                     android:id="@+id/package_name"
+                    android:textColor="@color/black"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     />
 
                 <TextView
                     android:id="@+id/package_description"
+                    android:textColor="@color/black"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     />
 
                 <TextView
                     android:id="@+id/package_weight"
+                    android:textColor="@color/black"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     />
 
                 <TextView
                     android:id="@+id/package_vendor_adress"
+                    android:textColor="@color/black"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     />
                 <TextView
                     android:id="@+id/package_building_site"
+                    android:textColor="@color/black"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     />
@@ -67,12 +72,14 @@
 
                 <TextView
                     android:id="@+id/package_delivery_date"
+                    android:textColor="@color/black"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     />
 
                 <TextView
                     android:id="@+id/package_delivery_time"
+                    android:textColor="@color/black"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     />
