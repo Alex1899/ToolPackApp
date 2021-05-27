@@ -55,7 +55,6 @@
         android:layout_height="wrap_content"
         />
 
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/manager_recycleview"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
